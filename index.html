@@ -228,6 +228,11 @@ body.light-mode .gradient-overlay {
         opacity: 0.6;
     }
 }
+.nav-links a.nav-cv-btn {
+    margin-left: 0;
+    font-size: 1rem;
+    padding: 10px 24px;
+}
 
 /* 6. Noise Texture - Optional subtle grain */
 .noise-texture {
@@ -342,14 +347,12 @@ body.light-mode .noise-texture {
         }
 
         /* Preload state */
-        body.preload * {
-            animation-duration: 0.001ms !important;
-            transition-duration: 0.001ms !important;
-        }
-        body.loaded * {
-            animation-duration: inherit !important;
-            transition-duration: inherit !important;
-        }
+      body.preload * {
+    animation-play-state: paused !important;
+}
+body.loaded * {
+    animation-play-state: running !important;
+}
 
         body.dark-theme {
             background-color: var(--ink);
@@ -798,7 +801,6 @@ body.light-mode .noise-texture {
         .nav-links a {
             color: var(--text-sub);
             text-decoration: none;
-            margin-left: 2.2rem;
             font-size: 0.8rem;
             font-weight: 600;
             transition: var(--transition-fast);
@@ -806,6 +808,81 @@ body.light-mode .noise-texture {
         .nav-links a:hover {
             color: var(--purple-text);
         }
+
+        .nav-links a.nav-cv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--purple);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 50px;
+    margin-left: 2.2rem; /* same spacing as other nav links */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+.nav-links a.nav-cv-btn:hover {
+    background: var(--purple-deep);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 108, 240, 0.4);
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-theme-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+}
+
+.nav-theme-btn:hover {
+    background: var(--ink-soft);
+    color: var(--purple-text);
+}
+
+.nav-cv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--purple);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+.nav-cv-btn:hover {
+    background: var(--purple-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 108, 240, 0.4);
+}
 
         /* Mobile Menu */
         .menu-toggle {
@@ -1105,16 +1182,17 @@ body.light-mode .noise-texture {
 }
 
 .grid-bg {
-    background-size: 60px 60px;
-    animation: gridMovement 40s linear infinite;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px); /* Adjust dots/grid style as needed */
+    background-size: 40px 40px;
+    animation: backgroundDrift 20s linear infinite;
 }
 
-@keyframes gridMovement {
+@keyframes backgroundDrift {
     0% {
-        transform: translate(0, 0);
+        background-position: 0 0;
     }
     100% {
-        transform: translate(60px, 60px);
+        background-position: 100px 100px;
     }
 }
 
@@ -1716,6 +1794,120 @@ body.light-mode .noise-texture {
     margin-bottom: 40px;
 }
 
+/* ============================================================
+   DIRECT MESSAGE FORM
+   ============================================================ */
+.message-form-wrapper {
+    padding: 40px;
+    margin-bottom: 40px;
+}
+
+.message-form-title {
+    font-family: var(--font-body);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+.message-form-sub {
+    color: var(--text-sub);
+    font-size: 0.9rem;
+    margin-bottom: 26px;
+}
+
+.message-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--purple-text);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 10px;
+    background: var(--ink-raised);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+    outline: none;
+    resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-sub);
+    opacity: 0.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--purple-text);
+    box-shadow: 0 0 0 3px rgba(124, 108, 240, 0.15);
+}
+
+.message-submit-btn {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: 0 4px 20px rgba(124, 108, 240, 0.25);
+}
+
+.message-submit-btn:hover {
+    background: var(--purple-deep);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(124, 108, 240, 0.4);
+}
+
+@media (max-width: 600px) {
+    .message-form-wrapper {
+        padding: 24px;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .message-submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 .contact-btn {
     background: var(--ink-soft);
     padding: 32px 20px 28px;
@@ -1769,6 +1961,14 @@ body.light-mode .noise-texture {
     margin-bottom: 8px;
     transition: var(--transition-fast);
     color: #ffffff;
+
+    .contact-icon-wrapper svg {
+    width: 28px;
+    height: 28px;
+    stroke: #ffffff;
+    stroke-width: 2;
+    fill: none;
+}
 }
 
 .contact-btn:hover .contact-icon-wrapper {
@@ -1855,7 +2055,7 @@ body.light-mode .noise-texture {
         height: 48px;
     }
 
-    .contact-icon-wrapper i {
+    .contact-icon-wrapper svg {
         width: 22px;
         height: 22px;
     }
@@ -1926,6 +2126,41 @@ body.light-mode .noise-texture {
     }
 }
 
+/* ============================================================
+   FOOTER SOCIAL ICONS
+   ============================================================ */
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.footer-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--ink-soft);
+    border: 1px solid var(--border);
+    color: var(--text-sub);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer-socials a:hover {
+    color: var(--purple-text);
+    border-color: var(--purple-text);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(124, 108, 240, 0.25);
+}
+
+.footer-socials svg {
+    width: 20px;
+    height: 20px;
+}
         /* ============================================================
            RESPONSIVE
            ============================================================ */
@@ -2050,6 +2285,17 @@ body.light-mode .noise-texture {
                 font-size: 0.5rem;
                 padding: 3px 8px;
             }
+            .nav-actions {
+    gap: 0.5rem;
+}
+.nav-cv-btn {
+    padding: 6px 14px;
+    font-size: 0.7rem;
+}
+.nav-theme-btn {
+    width: 34px;
+    height: 34px;
+}
         }
 
         @media (max-width: 480px) {
@@ -2306,25 +2552,35 @@ body.light-mode .noise-texture {
     ============================================================ -->
     <div id="web-layout">
         <nav>
-            <div class="logo">
-                <span class="logo-bracket">⟨</span>
-                THARUSHI<span>.</span>GANDARAWATHTHA
-                <span class="logo-bracket">⟩</span>
-            </div>
-            <div class="nav-links">
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-                <a href="#certifications">Certifications</a>
-                <a href="#research">Publications</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </nav>
+    <div class="logo">
+        <span class="logo-bracket">⟨</span>
+        T<span>.</span>G
+        <span class="logo-bracket">⟩</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#research">Publications</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <div class="nav-actions">
+        <button id="themeToggle" class="nav-theme-btn" title="Switch Theme" aria-label="Toggle theme">
+            <i data-lucide="moon" id="themeIcon"></i>
+        </button>
+        <a href="Tharushi_Gandarawaththa - CV.pdf" download class="nav-cv-btn">
+            <i data-lucide="download" size="16"></i> Download CV
+        </a>
+        <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
 
         <!-- ============================================================
         HERO SECTION
@@ -2332,17 +2588,17 @@ body.light-mode .noise-texture {
         <section class="hero">
             <div class="hero-content reveal">
                 <span class="eyebrow">✦ QA & AUTOMATION INTERN CANDIDATE</span>
-                <h1>Engineering <em class="gradient-text">quality</em> <br>into every build.</h1>
+                <h1>Hi, Im <i class="gradient-text">Tharushi</i> <br><i class="gradient-text">Gandarawaththa.</i></h1>
                 <div class="location-tag">
                     <i data-lucide="map-pin" size="15"></i>
                     <span>Kalagedihena, Sri Lanka</span>
                 </div>
                 <p class="hero-desc">Computing Honours Undergraduate specializing in Information Systems. Working across manual and automated testing, requirements analysis, data cleaning and processing, and applied machine learning.</p>
         <div class="hero-actions">
-        <a href="Tharushi_Gandarawaththa - CV.pdf" download class="cv-button">
-        <i data-lucide="download" size="17"></i>
-        Download CV
-    </a>
+        <a href="#projects" class="secondary-button">
+        <i data-lucide="briefcase" size="17"></i>
+        View Projects
+        </a>
     <a href="#contact" class="secondary-button">
         <i data-lucide="message-circle" size="17"></i>
         Let's Talk
@@ -2369,8 +2625,8 @@ body.light-mode .noise-texture {
 
         <!-- About Section -->
         <section id="about" class="section-block content-container scroll-spy-section">
-            <span class="section-eyebrow"><i class="fas fa-user"></i> Who is Tharushi?</span>
-            <h2 class="section-header">About <span class="gradient-text">Me</span></h2>
+            <span class="section-eyebrow">✦ WHO AM I?</span>
+            <h2 class="section-header">Bridging Development<span class="gradient-text">& Quality Assurance</span></h2>
 
             <div class="about-grid">
                 <div class="glass-card bio-card">
@@ -2387,6 +2643,25 @@ body.light-mode .noise-texture {
                     </p> 
                 </div>
             </div>
+
+             <div class="skills-grid">
+                <div class="glass-card ref-card">
+                    <div><i data-lucide="target" id="themeIcon"></i></div>
+                    <h3 class="gradient-text" >Detail Oriented</h3>
+                    <p class="text-sub" style="margin-bottom: 16px;">Systematic approach to finding bugs others miss</p>
+                </div>
+                <div class="glass-card ref-card">
+                    <div><i data-lucide="users" id="themeIcon"></i></div>
+                    <h3 class="gradient-text" >Team Player</h3>
+                    <p class="text-sub" style="margin-bottom: 16px;">Active contributor in group projects and agile sprint teams</p>
+                </div>
+                <div class="glass-card ref-card">
+                    <div><i data-lucide="zap" id="themeIcon"></i></div>
+                    <h3 class="gradient-text" >Fast Learner</h3>
+                    <p class="text-sub" style="margin-bottom: 16px;">Picked up Playwright + AI agents</p>
+                </div>
+             </div>
+            </div>  
         </section>
 
 
@@ -2399,14 +2674,14 @@ body.light-mode .noise-texture {
             SKILLS SECTION
             ============================================================ -->
             <section id="skills" class="section-block">
-                <span class="section-eyebrow reveal">✦ Skill Coverage</span>
-                <h2 class="section-header reveal">Technical <span class="gradient-text">Skills</span></h2>
+                <span class="section-eyebrow reveal">✦ Competencies Matrix</span>
+                <h2 class="section-header reveal">Technical <span class="gradient-text">Capabilities</span></h2>
 
                 <div class="skills-grid">
                     <!-- Section 1: Languages & Markup -->
                     <div class="skill-card glass-card reveal">
                         <div class="skill-icon">⌨️</div>
-                        <h4>Languages &amp; Markup</h4>
+                        <h4>Languages &amp; Scripting</h4>
                         <div class="chip-list">
                             <span class="skill-chip">
                                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-logo">
@@ -2501,7 +2776,7 @@ body.light-mode .noise-texture {
             PROJECTS SECTION
             ============================================================ -->
             <section id="projects" class="section-block">
-                <span class="section-eyebrow reveal">✦ Selected Work</span>
+                <span class="section-eyebrow reveal">✦ Portfolio Matrix</span>
                 <h2 class="section-header reveal">Featured <span class="gradient-text">Projects</span></h2>
 
                 <div class="projects-grid">
@@ -2657,12 +2932,11 @@ body.light-mode .noise-texture {
                     </div>
                 </div>
             </section>
-     </div>
 <!-- ============================================================
 CERTIFICATIONS SECTION
 ============================================================ -->
 <section id="certifications" class="section-block">
-    <span class="section-eyebrow reveal">✦ Verified</span>
+    <span class="section-eyebrow reveal">✦ Credentials</span>
     <h2 class="section-header reveal">Certifications <span class="gradient-text">&amp; Training</span></h2>
 
     <div class="cert-grid">
@@ -2774,7 +3048,7 @@ CERTIFICATIONS SECTION
 RESEARCH SECTION
 ============================================================ -->
 <section id="research" class="section-block">
-    <span class="section-eyebrow reveal">✦ Published</span>
+    <span class="section-eyebrow reveal">✦ Academic Contribution</span>
     <h2 class="section-header reveal">Research <span class="gradient-text">&amp; Publications</span></h2>
 
     <div class="glass-card reveal research-card">
@@ -2811,7 +3085,7 @@ RESEARCH SECTION
 CONTACT SECTION
 ============================================================ -->
 <section id="contact" class="section-block">
-    <span class="section-eyebrow reveal">✦ Say Hello</span>
+    <span class="section-eyebrow reveal">✦ Let's Connect</span>
     <h2 class="section-header reveal">Get In <span class="gradient-text">Touch</span></h2>
 
     <div class="contact-grid">
@@ -2826,24 +3100,30 @@ CONTACT SECTION
         </a>
 
         <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/tharushi-gandarawaththa-2144122a9/" class="contact-btn reveal" target="_blank">
-            <div class="contact-icon-wrapper">
-                <i data-lucide="linkedin" size="28"></i>
-            </div>
-            <p class="contact-label-main">LinkedIn</p>
-            <span class="contact-label">Connect with me</span>
-            <span class="contact-hover-text">View Profile →</span>
-        </a>
+<a href="https://www.linkedin.com/in/tharushi-gandarawaththa-2144122a9/" class="contact-btn reveal" target="_blank">
+    <div class="contact-icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+        </svg>
+    </div>
+    <p class="contact-label-main">LinkedIn</p>
+    <span class="contact-label">Connect with me</span>
+    <span class="contact-hover-text">View Profile →</span>
+</a>
 
-        <!-- GitHub -->
-        <a href="https://github.com/Trushiii" class="contact-btn reveal" target="_blank">
-            <div class="contact-icon-wrapper">
-                <i data-lucide="GitHub" size="28"></i>
-            </div>
-            <p class="contact-label-main">GitHub</p>
-            <span class="contact-label">View my code</span>
-            <span class="contact-hover-text">Explore Projects →</span>
-        </a>
+<!-- GitHub -->
+<a href="https://github.com/Trushiii" class="contact-btn reveal" target="_blank">
+    <div class="contact-icon-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+    </div>
+    <p class="contact-label-main">GitHub</p>
+    <span class="contact-label">View my code</span>
+    <span class="contact-hover-text">Explore Projects →</span>
+</a>
 
         <!-- Medium -->
         <a href="https://medium.com/@tharugandarawaththa" class="contact-btn reveal" target="_blank">
@@ -2855,7 +3135,38 @@ CONTACT SECTION
             <span class="contact-hover-text">Read Articles →</span>
         </a>
     </div>
+<!-- Direct Message Form -->
+<div class="message-form-wrapper glass-card reveal">
+    <h3 class="message-form-title">Send a Direct Message</h3>
 
+    <form action="https://formspree.io/f/xwlpzale" method="POST" class="message-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+        </div>
+
+        <button type="submit" class="message-submit-btn">
+            <i data-lucide="send" size="16"></i>
+            Send Message
+        </button>
+    </form>
+</div>
     <!-- Optional: Additional Contact CTA -->
     <div class="contact-cta reveal">
         <p>📬 Open to opportunities, collaborations, and conversations.</p>
@@ -2866,9 +3177,6 @@ CONTACT SECTION
         FLOATING CONTROLS
         ============================================================ -->
         <div class="floating-controls">
-            <button id="themeToggle" class="control-btn" title="Switch Theme" aria-label="Toggle theme">
-                <i data-lucide="moon" id="themeIcon"></i>
-            </button>
             <button id="backToTop" class="control-btn" title="Back to Top" aria-label="Back to top">
                 <i data-lucide="arrow-up"></i>
             </button>
@@ -2878,10 +3186,37 @@ CONTACT SECTION
         FOOTER
         ============================================================ -->
         <footer>
-            <div class="footer-content">
-                <p>© 2026 Tharushi Gandarawaththa.</p>
-            </div>
-        </footer>
+    <div class="footer-content">
+         
+        <div class="footer-socials">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/tharushi-gandarawaththa-2144122a9/" target="_blank" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect x="2" y="9" width="4" height="12"/>
+                    <circle cx="4" cy="4" r="2"/>
+                </svg>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/Trushiii" target="_blank" aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+            </a>
+
+            <!-- Medium -->
+            <a href="https://medium.com/@tharugandarawaththa" target="_blank" aria-label="Medium">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75S24 8.83 24 12z"/>
+                </svg>
+            </a>
+        </div>
+        <p>© 2026 Tharushi Gandarawaththa. All rights reserved.</p>
+    </div>
+</footer>
+    </div>
+        </body>
 
     <!-- ============================================================
     JAVASCRIPT
