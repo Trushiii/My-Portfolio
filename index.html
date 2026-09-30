@@ -994,34 +994,29 @@ body.light-mode .noise-texture {
 }
 .image-glow {
     position: absolute;
-    inset: -20px;
+    inset: -15px;
     background: var(--purple-glow);
     border-radius: 50%;
-    filter: blur(40px);
+    filter: blur(35px);
     opacity: 0.3;
-    animation: pulseGlow 3s ease-in-out infinite;
 }
-@keyframes pulseGlow {
-    0%,
-    100% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.6;
-        transform: scale(1.1);
-    }
-}
+
 .hero-image img {
     width: 360px;
     height: 400px;
     object-fit: cover;
     border-radius: 32% 68% 68% 32% / 32% 32% 68% 68%;
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-    animation: waterMorph 9s ease-in-out infinite alternate;
+    animation: waterMorph 8s ease-in-out infinite alternate;
     border: 2px solid var(--border);
     transition: border-color 0.5s ease;
 }
+@keyframes waterMorph {
+    0% { border-radius: 32% 68% 68% 32% / 32% 32% 68% 68%; }
+    50% { border-radius: 52% 48% 30% 70% / 50% 60% 40% 50%; }
+    100% { border-radius: 68% 32% 50% 50% / 32% 32% 68% 68%; }
+}
+
 .image-badge {
     position: absolute;
     bottom: 20px;
@@ -1042,34 +1037,6 @@ body.light-mode .noise-texture {
     height: 6px;
     border-radius: 50%;
     background: #00ff88;
-    animation: badgePulse 2s infinite;
-}
-@keyframes badgePulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.55);
-    }
-    70% {
-        box-shadow: 0 0 0 8px rgba(0, 255, 136, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
-    }
-}
-
-/* ✅ FIXED: Water morph without movement */
-@keyframes waterMorph {
-    0% {
-        border-radius: 32% 68% 68% 32% / 32% 32% 68% 68%;
-        transform: translate(0, 0);
-    }
-    50% {
-        border-radius: 52% 48% 30% 70% / 50% 60% 40% 50%;
-        transform: translate(0, -5px);
-    }
-    100% {
-        border-radius: 68% 32% 50% 50% / 32% 32% 68% 68%;
-        transform: translate(0, 0);
-    }
 }
 
 .scroll-indicator {
@@ -1098,6 +1065,56 @@ body.light-mode .noise-texture {
     }
     50% {
         transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* ============================================================
+   HERO IMAGE & BACKGROUND MOVEMENTS ENHANCEMENTS
+   ============================================================ */
+
+/* Interactive Mouse Parallax Container for Hero Image */
+.hero-image {
+    perspective: 1000px;
+}
+
+.image-wrapper {
+    transition: transform 0.3s ease-out;
+    animation: heroFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes heroFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-12px) rotate(1deg);
+    }
+}
+
+/* Subtle Pulsing / Shifting Background Movement */
+@keyframes dynamicBgShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.grid-bg {
+    background-size: 60px 60px;
+    animation: gridMovement 40s linear infinite;
+}
+
+@keyframes gridMovement {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(60px, 60px);
     }
 }
 
@@ -2069,6 +2086,39 @@ body.light-mode .noise-texture {
             }
         }
 
+        /* ============================================================
+   AUTOMATIC WATER DROP / LIQUID BLOB ANIMATION
+   ============================================================ */
+
+.hero-image img, 
+.image-wrapper img {
+    animation: waterDropMorph 8s ease-in-out infinite alternate, heroFloat 5s ease-in-out infinite alternate;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Liquid morphing shape like a water drop */
+@keyframes waterDropMorph {
+    0% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+    100% {
+        border-radius: 40% 60% 70% 30% / 70% 40% 50% 60%;
+    }
+}
+
+/* Gentle floating movement */
+@keyframes heroFloat {
+    0% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-10px) rotate(2deg);
+    }
+}
+
 /* ============================================================
    FLOATING CONTROLS - VERTICAL SIDEBAR
    ============================================================ */
@@ -2279,10 +2329,10 @@ body.light-mode .noise-texture {
         <!-- ============================================================
         HERO SECTION
         ============================================================ -->
-        <section class="hero" id="about">
+        <section class="hero">
             <div class="hero-content reveal">
-                <span class="eyebrow">✦ Undergraduate · QA INTERN CANDIDATE</span>
-                <h1>Engineering <em>quality</em> <br>into every build.</h1>
+                <span class="eyebrow">✦ QA & AUTOMATION INTERN CANDIDATE</span>
+                <h1>Engineering <em class="gradient-text">quality</em> <br>into every build.</h1>
                 <div class="location-tag">
                     <i data-lucide="map-pin" size="15"></i>
                     <span>Kalagedihena, Sri Lanka</span>
@@ -2300,12 +2350,12 @@ body.light-mode .noise-texture {
 </div>
             </div>
             <div class="hero-image reveal">
-                <div class="image-wrapper">
+                <div class="image-wrapper" id="heroImageWrapper">
                     <img src="Formal.jpg" alt="Tharushi Gandarawaththa" loading="lazy" onerror="this.style.display='none'">
                     <div class="image-glow"></div>
                     <div class="image-badge">
                         <span class="badge-dot"></span>
-                        Available for work
+                        Open to Work
                     </div>
                 </div>
             </div>
@@ -2316,6 +2366,29 @@ body.light-mode .noise-texture {
                 <div class="scroll-line"></div>
             </div>
         </section>
+
+        <!-- About Section -->
+        <section id="about" class="section-block content-container scroll-spy-section">
+            <span class="section-eyebrow"><i class="fas fa-user"></i> Who is Tharushi?</span>
+            <h2 class="section-header">About <span class="gradient-text">Me</span></h2>
+
+            <div class="about-grid">
+                <div class="glass-card bio-card">
+                    <p class="bio-lead">
+                        I am a <strong>Bachelor of Computing Honours in Information Systems</strong> undergraduate at the University of Sri Jayewardenepura. With hands-on, cross-functional exposure to Quality Assurance, requirements engineering, and applied machine learning, I focus heavily on delivering robust, defect-free digital systems.
+                    </p>
+                    <br>
+                    <p>
+                        I thrive in the intersection of software development and verification: translating product requirements into structured test cases, mapping API payloads, and executing automated browser testing via Playwright and Postman.
+                    </p>
+                    <br>
+                    <p>
+                        I am committed to continuous learning and professional growth, with a long-term goal of becoming a highly skilled QA Engineer who contributes to building secure, high-quality software products.
+                    </p> 
+                </div>
+            </div>
+        </section>
+
 
         <!-- ============================================================
         CONTENT CONTAINER
@@ -2584,7 +2657,7 @@ body.light-mode .noise-texture {
                     </div>
                 </div>
             </section>
-
+     </div>
 <!-- ============================================================
 CERTIFICATIONS SECTION
 ============================================================ -->
@@ -3096,6 +3169,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
+
+        // ============================================================
+// HERO IMAGE MOUSE PARALLAX EFFECT
+// ============================================================
+document.addEventListener('mousemove', (e) => {
+    const wrapper = document.getElementById('heroImageWrapper');
+    if (!wrapper) return;
+    
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+    
+    wrapper.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+});
+
+// Reset position when mouse leaves window
+document.addEventListener('mouseleave', () => {
+    const wrapper = document.getElementById('heroImageWrapper');
+    if (!wrapper) return;
+    wrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
+});
 
         console.log('✨ Portfolio loaded successfully!');
 
