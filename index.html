@@ -932,15 +932,18 @@ body.loaded * {
             background: rgba(245, 240, 235, 0.88);
         }
         .logo {
-            font-family: var(--font-mono);
-            font-weight: 600;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            color: var(--text-main);
+            /* keep existing styles */
+            cursor: pointer;
+            transition: var(--transition-fast);
+            text-decoration: none;
         }
-        .logo-bracket {
-            color: var(--purple-text);
-            font-weight: 300;
+
+        .logo:hover {
+            transform: translateY(-1px);
+        }
+
+        .logo:hover .logo-bracket {
+            color: var(--mint-text);
         }
         .logo span {
             color: var(--purple-text);
@@ -1283,9 +1286,12 @@ body.loaded * {
     100% { border-radius: 68% 32% 50% 50% / 32% 32% 68% 68%; }
 }
 
+/* ============================================================
+   OPEN-TO-WORK BADGE — top-right, live typing, pulsing dot
+   ============================================================ */
 .image-badge {
     position: absolute;
-    bottom: 20px;
+    top: 20px;                                  /* moved from bottom to top */
     right: -10px;
     background: var(--purple);
     color: white;
@@ -1297,12 +1303,57 @@ body.loaded * {
     align-items: center;
     gap: 8px;
     box-shadow: 0 4px 20px rgba(124, 108, 240, 0.4);
+    min-width: 138px;                           /* prevents resize during typing */
+    z-index: 3;
 }
+
+/* --- Pulsing green dot --- */
 .badge-dot {
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background: #00ff88;
+    background: #22c55e;
+    flex-shrink: 0;
+    animation: badgeDotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes badgeDotPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.75),
+                    0 0 4px 1px rgba(34, 197, 94, 0.9);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0),
+                    0 0 12px 2px rgba(34, 197, 94, 0.55);
+        transform: scale(1.25);
+    }
+}
+
+/* --- Live-typing text --- */
+.badge-text {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid rgba(255, 255, 255, 0.85);
+    vertical-align: bottom;
+    width: 0;
+    padding-right: 1px;
+    animation:
+        badgeTyping 4.5s steps(12, end) infinite,
+        badgeCursor 0.75s step-end infinite;
+}
+
+@keyframes badgeTyping {
+    0%, 8%    { width: 0; }
+    42%       { width: 12ch; }
+    72%       { width: 12ch; }
+    88%, 100% { width: 0; }
+}
+
+@keyframes badgeCursor {
+    0%, 100% { border-color: rgba(255, 255, 255, 0.85); }
+    50%      { border-color: transparent; }
 }
 
 .scroll-indicator {
@@ -2962,10 +3013,15 @@ body.light-mode .skill-logo-icon {
                 display: none !important;
             }
             .image-badge {
-                bottom: 10px;
-                right: 0px;
-                font-size: 0.6rem;
-                padding: 6px 12px;
+            top: 10px;              /* moved from bottom to top */
+            right: 0px;
+            font-size: 0.6rem;
+            padding: 6px 12px;
+            min-width: 118px;       /* smaller min-width for smaller font */
+        }
+                .badge-dot {
+                width: 6px;
+                height: 6px;
             }
 
             .project-video {
@@ -3138,7 +3194,7 @@ body.light-mode .skill-logo-icon {
 </head>
 
 <body data-theme="dark" data-scroll-behavior="smooth" data-cursor="custom" class="dark-theme preload" id="app-root" role="document" aria-label="Tharushi Gandarawaththa - Computing Undergraduate Portfolio" itemscope itemtype="https://schema.org/ProfilePage">
-
+<div id="top"></div>
 <!-- ============================================================
     BACKGROUND EFFECTS - COMPLETE PACKAGE
     ============================================================ -->
@@ -3263,11 +3319,11 @@ body.light-mode .skill-logo-icon {
     ============================================================ -->
     <div id="web-layout">
         <nav>
-    <div class="logo">
-        <span class="logo-bracket">⟨</span>
-        T<span>.</span>G
-        <span class="logo-bracket">⟩</span>
-    </div>
+            <a href="#top" class="logo" aria-label="Back to top">
+                <span class="logo-bracket">⟨</span>
+                T<span>.</span>G
+                <span class="logo-bracket">⟩</span>
+            </a>
 
     <div class="nav-links">
         <a href="#about">About</a>
@@ -3284,7 +3340,7 @@ body.light-mode .skill-logo-icon {
             <i data-lucide="moon" id="themeIcon"></i>
         </button>
       <a href="Tharushi_Gandarawaththa - CV.pdf" target="_blank" rel="noopener" class="nav-cv-btn">
-        <i data-lucide="file-check" size="16"></i> Verified CV
+        <i data-lucide="file-check" size="16"></i> My CV
        </a>
         <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
             <span></span>
@@ -3323,7 +3379,7 @@ body.light-mode .skill-logo-icon {
                     <div class="image-glow"></div>
                     <div class="image-badge">
                         <span class="badge-dot"></span>
-                        Open to Work
+                        <span class="badge-text">Open to Work</span>
                     </div>
                 </div>
             </div>
@@ -4318,75 +4374,86 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-                    // ============================================================
-            // NAV SCROLL SPY
-            // ============================================================
-            (function initScrollSpy() {
-                const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-                if (!navLinks.length) return;
+// ============================================================
+// NAV SCROLL SPY
+// ============================================================
+(function initScrollSpy() {
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    if (!navLinks.length) return;
 
-                // Build a map of { sectionId: navLink }
-                const linkMap = new Map();
-                navLinks.forEach(link => {
-                    const id = link.getAttribute('href').slice(1);
-                    if (id) linkMap.set(id, link);
-                });
+    const linkMap = new Map();
+    navLinks.forEach(link => {
+        const id = link.getAttribute('href').slice(1);
+        if (id) linkMap.set(id, link);
+    });
 
-                // Collect sections from the map
-                const sections = Array.from(linkMap.keys())
-                    .map(id => document.getElementById(id))
-                    .filter(Boolean);
+    const sections = Array.from(linkMap.keys())
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
 
-                if (!sections.length) return;
+    if (!sections.length) return;
 
-                let currentActive = null;
-                const offset = 120; // account for fixed nav height
+    let currentActive = null;
+    const offset = 140; // matches fixed nav height + a little buffer
 
-                function updateActive() {
-                    const scrollPos = window.scrollY + offset;
-                    let active = sections[0];
+    // Accurate document-relative top — works even when parent has position: relative
+    function getTop(el) {
+        return el.getBoundingClientRect().top + window.scrollY;
+    }
 
-                    // Find the last section whose top is above the scroll position
-                    for (const section of sections) {
-                        if (section.offsetTop <= scrollPos) {
-                            active = section;
-                        }
-                    }
+    function updateActive() {
+        const scrollPos = window.scrollY + offset;
+        let active = sections[0];
 
-                    // Special case: near the very bottom → activate the last section
-                    const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-                    if (nearBottom) active = sections[sections.length - 1];
+        for (const section of sections) {
+            if (getTop(section) <= scrollPos) {
+                active = section;
+            }
+        }
 
-                    if (active !== currentActive) {
-                        // Remove all active states
-                        navLinks.forEach(l => l.classList.remove('active'));
-                        // Add active to current
-                        const activeLink = linkMap.get(active.id);
-                        if (activeLink) activeLink.classList.add('active');
-                        currentActive = active;
-                    }
-                }
+        // Near bottom → force last section
+        const nearBottom =
+            window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight - 60;
+        if (nearBottom) active = sections[sections.length - 1];
 
-                // Throttle via requestAnimationFrame for smoothness
-                let ticking = false;
-                window.addEventListener('scroll', () => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            updateActive();
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                }, { passive: true });
+        if (active !== currentActive) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            const activeLink = linkMap.get(active.id);
+            if (activeLink) activeLink.classList.add('active');
+            currentActive = active;
+        }
+    }
 
-                // Also run on resize (layout can change)
-                window.addEventListener('resize', updateActive);
-
-                // Initial check
+    // Throttled scroll handler
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
                 updateActive();
-            })();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 
-        // ============================================================
+    window.addEventListener('resize', updateActive);
+
+    // Click: instantly highlight the clicked link + lock it briefly
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            // Let the smooth scroll finish, then let scroll handler take over
+            setTimeout(() => { currentActive = null; updateActive(); }, 800);
+        });
+    });
+
+    // Initial
+    updateActive();
+})();
+
+// ============================================================
         // MOBILE MENU TOGGLE
         // ============================================================
         var menuToggle = document.getElementById('menuToggle');
