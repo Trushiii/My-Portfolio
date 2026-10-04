@@ -951,6 +951,8 @@ body.loaded * {
             font-size: 0.8rem;
             font-weight: 600;
             transition: var(--transition-fast);
+            position: relative;      /* ← fixes the dot positioning */
+            padding-bottom: 4px;     /* ← gives the dot space below the text */
         }
 
         /* ============================================================
