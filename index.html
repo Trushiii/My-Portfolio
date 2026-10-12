@@ -3116,91 +3116,17 @@ body.light-mode .skill-logo-icon {
 }
 
 /* ============================================================
-   FLOATING CONTROLS - VERTICAL SIDEBAR
-   ============================================================ */
-.floating-controls {
-    position: fixed;
-    top: 50%;
-    right: 30px;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    z-index: 3000;
-}
-
-.control-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: var(--purple);
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-    transition: var(--transition-fast);
-    font-size: 18px;
-}
-
-.control-btn:hover {
-    transform: scale(1.1);
-    background: var(--purple-deep);
-}
-
-#backToTop {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-}
-
-#backToTop.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-    .floating-controls {
-        right: 16px;
-        gap: 10px;
-    }
-
-    .control-btn {
-        width: 42px;
-        height: 42px;
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .floating-controls {
-        right: 12px;
-        gap: 8px;
-    }
-
-    .control-btn {
-        width: 38px;
-        height: 38px;
-        font-size: 14px;
-        border-radius: 10px;
-    }
-}
-
-/* ============================================================
    GLASSY FLOATING NAVBAR + ICON NAV + PROXIMITY GLOW
    (overrides previous nav styles — do not delete old ones)
    ============================================================ */
 
 /* --- The floating, glassy, rounded navbar --- */
 nav {
-    position: fixed;
+    position: fixed !important;     /* force it to stay pinned */
     top: 18px;
     left: 20px;
     right: 20px;
+    width: auto;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0.75rem 1rem;
@@ -3218,9 +3144,17 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: box-shadow 0.4s cubic-bezier(0.2, 1, 0.3, 1),
-                background-color 0.4s ease,
-                border-color 0.4s ease;
+    /* Only animate colors — NOT position */
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+    will-change: auto;
+}
+
+/* Ensure nav's parent doesn't break fixed positioning */
+#web-layout {
+    transform: none !important;
+    filter: none !important;
+    perspective: none !important;
+    will-change: auto !important;
 }
 
 body.light-mode nav {
@@ -3231,14 +3165,6 @@ body.light-mode nav {
         0 2px 6px rgba(90, 75, 209, 0.06),
         inset 0 1px 0 rgba(255, 255, 255, 0.9),
         inset 0 -1px 0 rgba(0, 0, 0, 0.04);
-}
-
-/* Slightly deepen when user is at the very top of the page */
-body.at-top nav {
-    background: rgba(20, 17, 36, 0.68);
-}
-body.light-mode.at-top nav {
-    background: rgba(255, 255, 255, 0.75);
 }
 
 /* --- Icon nav layout --- */
@@ -3442,6 +3368,77 @@ body.light-mode nav .logo:hover {
         border-radius: 16px;
     }
 
+/* ============================================================
+   NAV LINKS — TEXT STYLE WITH PROXIMITY GLOW
+   ============================================================ */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links a {
+    position: relative;
+    padding: 8px 14px;
+    border-radius: 12px;
+    color: var(--text-sub);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    width: auto;        /* ← ADD THIS */
+    height: auto;  
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    transition:
+        color 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.3s cubic-bezier(0.2, 1, 0.3, 1),
+        box-shadow 0.3s ease;
+    /* proximity intensity (0 → 1) */
+    --prox: 0;
+
+    background: rgba(124, 108, 240, calc(var(--prox) * 0.10));
+    border: 1px solid rgba(124, 108, 240, calc(var(--prox) * 0.35));
+    color: color-mix(in srgb, var(--text-sub) 100%, var(--purple-text) calc(var(--prox) * 100%));
+    text-shadow: 0 0 calc(var(--prox) * 10px) var(--purple-glow);
+    transform: translateY(calc(var(--prox) * -1px));
+}
+
+body.light-mode .nav-links a {
+    background: rgba(90, 75, 209, calc(var(--prox) * 0.10));
+    border-color: rgba(90, 75, 209, calc(var(--prox) * 0.30));
+    text-shadow: none;
+}
+
+/* Kill the old active dot / tooltip pseudo-elements */
+.nav-links a::after,
+.nav-links a::before {
+    display: none !important;
+}
+
+/* Active link (scroll spy) */
+.nav-links a.active {
+    color: var(--purple-text);
+    background: rgba(124, 108, 240, 0.14);
+    border-color: rgba(124, 108, 240, 0.4);
+    box-shadow: 0 0 14px rgba(124, 108, 240, 0.25);
+}
+
+body.light-mode .nav-links a.active {
+    color: var(--purple-deep);
+    background: rgba(90, 75, 209, 0.12);
+    border-color: rgba(90, 75, 209, 0.35);
+}
+
+/* ============================================================
+   MOBILE — stack labels vertically in slide-in menu
+   ============================================================ */
+@media (max-width: 768px) {
     .nav-links {
         position: fixed;
         top: 0;
@@ -3457,7 +3454,7 @@ body.light-mode nav .logo:hover {
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch;
-        gap: 8px;
+        gap: 6px;
         transition: right 0.4s cubic-bezier(0.2, 1, 0.3, 1);
         border-left: 1px solid var(--border);
         z-index: 3000;
@@ -3467,52 +3464,24 @@ body.light-mode nav .logo:hover {
         right: 0;
     }
 
-    /* Mobile: icon + label side by side */
     .nav-links a {
         width: 100%;
-        height: 48px;
-        justify-content: flex-start;
-        padding: 0 14px;
-        gap: 12px;
+        padding: 14px 18px;
+        font-size: 1rem;
         border-radius: 12px;
+        --prox: 0 !important;
+        transform: none;
+         width: 100%;        /* keep 100% for slide-in menu */
+        height: auto;  
+        text-shadow: none;
         background: transparent;
         border-color: transparent;
-        /* Reset proximity on mobile */
-        --prox: 0 !important;
-    }
-
-    .nav-links a svg,
-    .nav-links a i {
-        filter: none;
-        transform: none;
-        flex-shrink: 0;
-    }
-
-    /* Turn tooltip into an inline label */
-    .nav-links a::before {
-        content: attr(data-label);
-        position: static;
-        transform: none;
-        opacity: 1;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-        font-family: var(--font-body);
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: inherit;
-        letter-spacing: 0;
-    }
-
-    .nav-links a:hover::before,
-    .nav-links a:hover {
-        transform: none;
     }
 
     .nav-links a.active {
         background: rgba(124, 108, 240, 0.14);
     }
+}
 
     .nav-scroll-top {
         width: 34px;
@@ -3673,28 +3642,14 @@ body.light-mode nav .logo:hover {
     </a>
 
     <div class="nav-links" id="navLinks">
-        <a href="#about" data-label="About" aria-label="About">
-            <i data-lucide="user" size="18"></i>
-        </a>
-        <a href="#skills" data-label="Skills" aria-label="Skills">
-            <i data-lucide="sparkles" size="18"></i>
-        </a>
-        <a href="#projects" data-label="Projects" aria-label="Projects">
-            <i data-lucide="briefcase" size="18"></i>
-        </a>
-        <a href="#certifications" data-label="Certifications" aria-label="Certifications">
-            <i data-lucide="award" size="18"></i>
-        </a>
-        <a href="#research" data-label="Publications" aria-label="Publications">
-            <i data-lucide="book-open" size="18"></i>
-        </a>
-        <a href="#blog" data-label="Blog" aria-label="Blog">
-            <i data-lucide="feather" size="18"></i>
-        </a>
-        <a href="#contact" data-label="Contact" aria-label="Contact">
-            <i data-lucide="mail" size="18"></i>
-        </a>
-    </div>
+    <a href="#about" data-label="About">About</a>
+    <a href="#skills" data-label="Skills">Skills</a>
+    <a href="#projects" data-label="Projects">Projects</a>
+    <a href="#certifications" data-label="Certifications">Certifications</a>
+    <a href="#research" data-label="Publications">Publications</a>
+    <a href="#blog" data-label="Blog">Blog</a>
+    <a href="#contact" data-label="Contact">Contact</a>
+</div>
 
     <div class="nav-actions">
         <button id="navScrollTop" class="nav-scroll-top" title="Back to top" aria-label="Back to top">
@@ -3728,7 +3683,7 @@ body.light-mode nav .logo:hover {
                     <i data-lucide="map-pin" size="15"></i>
                     <span>Kalagedihena, Sri Lanka</span>
                 </div>
-                <p class="hero-desc"> QA &amp; gAutomation focused Computing Honours Undergraduate specializing in Information Systems. Building test frameworks with Playwright and Postman, writing structured test cases, and validating systems end to end. Currently seeking a QA or Business Analysis internship.</p>
+                <p class="hero-desc"> QA &amp; Automation focused Computing Honours Undergraduate specializing in Information Systems. Building test frameworks with Playwright and Postman, writing structured test cases, and validating systems end to end. Currently seeking a QA or Business Analysis internship.</p>
         <div class="hero-actions">
         <a href="#projects" class="secondary-button">
         <i data-lucide="briefcase" size="17"></i>
@@ -4549,15 +4504,6 @@ CONTACT SECTION
 </section>
 
         <!-- ============================================================
-        FLOATING CONTROLS
-        ============================================================ -->
-        <div class="floating-controls">
-            <button id="backToTop" class="control-btn" title="Back to Top" aria-label="Back to top">
-                <i data-lucide="arrow-up"></i>
-            </button>
-        </div>
-
-        <!-- ============================================================
         FOOTER
         ============================================================ -->
         <footer>
@@ -4718,26 +4664,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 localStorage.setItem('theme', isLight ? 'dark' : 'light');
-            });
-        }
-
-        // ============================================================
-        // BACK TO TOP
-        // ============================================================
-        var btt = document.getElementById('backToTop');
-        if (btt) {
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 400) {
-                    btt.classList.add('show');
-                } else {
-                    btt.classList.remove('show');
-                }
-            });
-            btt.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
             });
         }
 
@@ -5275,7 +5201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Skip on touch devices — no cursor to track
     if ('ontouchstart' in window) return;
 
-    const MAX_DIST = 130; // px — how far the "magnetic" reach extends
+    const MAX_DIST = 160; // px — how far the "magnetic" reach extends
 
     let mouseX = -9999;
     let mouseY = -9999;
@@ -5342,27 +5268,23 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================================
 (function initNavScrollTop() {
     const btn = document.getElementById('navScrollTop');
-    const body = document.body;
+    if (!btn) return;
     const threshold = 200;
 
     function update() {
         if (window.scrollY > threshold) {
-            body.classList.remove('at-top');
-            if (btn) btn.classList.add('show');
+            btn.classList.add('show');
         } else {
-            body.classList.add('at-top');
-            if (btn) btn.classList.remove('show');
+            btn.classList.remove('show');
         }
     }
 
     window.addEventListener('scroll', update, { passive: true });
     update();
 
-    if (btn) {
-        btn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 })();
 
     </script>
