@@ -256,6 +256,164 @@ nav{top:12px;left:12px;right:12px;padding:.55rem .75rem;border-radius:16px}
 
 /* SKILLS */
 .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+/* ============================================================
+   SKILLS — MARQUEE ROWS (replaces the 3-column grid)
+   ============================================================ */
+.skills-marquee {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.skill-row {
+    display: flex;
+    align-items: stretch;
+    background: var(--ink-soft);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    min-height: 76px;
+    transition: var(--transition-fast);
+}
+
+.skill-row:hover {
+    border-color: var(--purple-text);
+    box-shadow: 0 8px 30px rgba(124, 108, 240, 0.12);
+}
+
+/* --- Left label pill --- */
+.skill-row-label {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 22px;
+    background: var(--ink-raised);
+    border-right: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--purple-text);
+    white-space: nowrap;
+    position: relative;
+    z-index: 3;
+}
+
+.skill-row-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--purple);
+    box-shadow: 0 0 10px var(--purple-glow);
+    flex-shrink: 0;
+}
+
+/* --- Scrolling area --- */
+.skill-row-marquee {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Right-edge fade mask */
+.skill-row-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 80px;
+    background: linear-gradient(-90deg, var(--ink-soft), transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Left-edge soft fade from the label side */
+.skill-row-marquee::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(90deg, var(--ink-soft), transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* --- The scrolling track --- */
+.skill-row-track {
+    display: flex;
+    animation: marqueeLeft 45s linear infinite;
+    will-change: transform;
+    flex-shrink: 0;
+}
+
+/* Reverse direction rows */
+.skill-row.reverse .skill-row-track {
+    animation-name: marqueeRight;
+}
+
+/* Pause on hover — lets users read */
+.skill-row:hover .skill-row-track {
+    animation-play-state: paused;
+}
+
+/* Each content block = one full copy of the chip list */
+.skill-row-content {
+    display: flex;
+    gap: 12px;
+    padding-right: 12px;
+    flex-shrink: 0;
+}
+
+/* The two keyframes — one slides left, one slides right */
+@keyframes marqueeLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .skill-row-track {
+        animation: none;
+        transform: none;
+    }
+}
+
+/* --- Mobile: label stacks above the row --- */
+@media (max-width: 700px) {
+    .skill-row {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .skill-row-label {
+        padding: 14px 18px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .skill-row-marquee {
+        padding: 14px 0;
+    }
+
+    .skill-row-marquee::before {
+        display: none;
+    }
+}
 .skill-card{display:flex;flex-direction:column;padding:30px;min-height:100%}
 .skill-card .chip-list{flex:1;align-content:flex-start}
 .skill-card h4{font-family:var(--font-mono);font-size:.72rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple-text);margin-bottom:20px}
@@ -523,6 +681,409 @@ footer{padding:40px 20px}
 .hero-actions{flex-direction:column;width:100%}
 .hero-actions .cv-button,.hero-actions .secondary-button{width:100%;justify-content:center}
 }
+
+/* ============================================================
+   LIGHT MODE — ENHANCED PALETTE (paste at end of <style>)
+   Higher contrast between layers, warm ivory page, soft shadows
+   ============================================================ */
+
+body.light-mode {
+    /* Page background — warm ivory (NOT pure white) */
+    --ink: #eaeaf0;
+    --ink-soft: #ffffff;
+    --ink-raised: #f3efe7;
+
+    /* Text — deeper ink for readability */
+    --text-main: #141327;
+    --text-sub: #4d4760;
+
+    /* On-brand purple-tinted borders */
+    --border: rgba(90, 75, 209, 0.15);
+
+    /* Stronger accent text */
+    --purple-text: #4a3bc4;
+    --mint-text: #00856e;
+
+    /* Softer glow that still reads on light */
+    --purple-glow: rgba(90, 75, 209, 0.20);
+}
+
+/* --- Light mode: true frosted glass --- */
+body.light-mode nav {
+    background: rgba(255, 255, 255, 0.55);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:
+        0 8px 32px rgba(90, 75, 209, 0.14),
+        0 2px 8px rgba(90, 75, 209, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        inset 0 -1px 0 rgba(90, 75, 209, 0.06);
+}
+
+/* Slightly stronger when scrolled or over dark content — still glassy */
+body.light-mode .nav-links a { color: #4d4760; }
+
+body.light-mode .nav-links a.active {
+    color: #4a3bc4;
+    background: rgba(90, 75, 209, 0.12);
+    border-color: rgba(90, 75, 209, 0.32);
+}
+
+body.light-mode .logo { color: #141327; }
+
+/* --- Cards: soft shadows so they lift off the tinted background --- */
+body.light-mode .glass-card,
+body.light-mode .skill-row,
+body.light-mode .cert-card,
+body.light-mode .contact-btn,
+body.light-mode .blog-card,
+body.light-mode .metrics-grid,
+body.light-mode .test-runner,
+body.light-mode .message-form-wrapper,
+body.light-mode .qa-loader {
+    border-color: rgba(90, 75, 209, 0.14);
+    box-shadow:
+        0 2px 8px rgba(90, 75, 209, 0.06),
+        0 1px 2px rgba(90, 75, 209, 0.04);
+}
+
+body.light-mode .glass-card:hover,
+body.light-mode .skill-row:hover,
+body.light-mode .cert-card:hover,
+body.light-mode .contact-btn:hover,
+body.light-mode .blog-card:hover {
+    box-shadow:
+        0 12px 30px rgba(90, 75, 209, 0.14),
+        0 2px 6px rgba(90, 75, 209, 0.08);
+    border-color: var(--purple-text);
+}
+
+/* --- Skill chips: pure white with a defined purple border --- */
+body.light-mode .skill-chip {
+    background: #ffffff;
+    border: 1px solid rgba(90, 75, 209, 0.20);
+    color: #141327;
+}
+
+body.light-mode .skill-chip:hover {
+    border-color: #4a3bc4;
+    box-shadow: 0 4px 12px rgba(90, 75, 209, 0.15);
+}
+
+/* --- Marquee row label + edge fades --- */
+body.light-mode .skill-row-label {
+    background: #f3efe7;
+    color: #4a3bc4;
+    border-right: 1px solid rgba(90, 75, 209, 0.14);
+}
+
+body.light-mode .skill-row-marquee::after {
+    background: linear-gradient(-90deg, #ffffff, transparent);
+}
+
+body.light-mode .skill-row-marquee::before {
+    background: linear-gradient(90deg, #ffffff, transparent);
+}
+
+/* --- Form inputs: no more invisibility --- */
+body.light-mode .form-group input,
+body.light-mode .form-group textarea {
+    background: #ffffff;
+    border: 1px solid rgba(90, 75, 209, 0.18);
+    color: #141327;
+}
+
+body.light-mode .form-group input::placeholder,
+body.light-mode .form-group textarea::placeholder {
+    color: #8b849c;
+    opacity: 1;
+}
+
+body.light-mode .form-group input:focus,
+body.light-mode .form-group textarea:focus {
+    border-color: #4a3bc4;
+    box-shadow: 0 0 0 3px rgba(90, 75, 209, 0.15);
+}
+
+/* --- Background layers: subtle but visible on light --- */
+body.light-mode .grid-bg {
+    background-image:
+        linear-gradient(rgba(90, 75, 209, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(90, 75, 209, 0.06) 1px, transparent 1px);
+    opacity: 0.7;
+}
+
+body.light-mode .glow-orb { opacity: 0.20; }
+body.light-mode .blob { opacity: 0.20; }
+body.light-mode .particle-enhanced { opacity: 0.12; }
+body.light-mode .particle { opacity: 0.12; }
+
+/* --- Headers --- */
+body.light-mode .section-header {
+    color: #141327;
+    border-left-color: #4a3bc4;
+}
+
+body.light-mode .section-eyebrow,
+body.light-mode .eyebrow {
+    color: #4a3bc4;
+}
+
+/* --- Certificate overlay: darker dim so the "View" button stays legible --- */
+body.light-mode .cert-overlay {
+    background: rgba(20, 19, 39, 0.65);
+}
+
+/* --- Footer socials --- */
+body.light-mode .footer-socials a {
+    background: #ffffff;
+    border-color: rgba(90, 75, 209, 0.15);
+    color: #4d4760;
+}
+
+body.light-mode .footer-socials a:hover {
+    color: #4a3bc4;
+    border-color: #4a3bc4;
+    box-shadow: 0 6px 15px rgba(90, 75, 209, 0.18);
+}
+/* ============================================================
+   HERO ROTATING TITLES
+   ============================================================ */
+.hero-rotator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    color: var(--text-sub);
+    margin-bottom: 18px;
+    min-height: 1.6em;
+}
+
+.hero-rotator-prefix {
+    opacity: 0.75;
+    flex-shrink: 0;
+}
+
+.hero-rotator-text {
+    font-weight: 600;
+    color: var(--purple-text);
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.hero-rotator-text::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    background: var(--purple-text);
+    margin-left: 3px;
+    vertical-align: middle;
+    animation: rotatorBlink 0.85s step-end infinite;
+}
+
+@keyframes rotatorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+body.light-mode .hero-rotator-text {
+    color: #4a3bc4;
+}
+body.light-mode .hero-rotator-text::after {
+    background: #4a3bc4;
+}
+
+@media (max-width: 768px) {
+    .hero-rotator {
+        justify-content: center;
+        font-size: 0.95rem;
+    }
+}
+
+/* ============================================================
+   GITHUB CONTRIBUTION GRID
+   ============================================================ */
+.github-contrib {
+    padding: 28px 30px;
+    margin-bottom: 40px;
+}
+
+.github-contrib-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.github-contrib-header h3 {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-top: 6px;
+}
+
+.github-contrib-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--purple-text);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--ink-raised);
+    transition: var(--transition-fast);
+    white-space: nowrap;
+}
+
+.github-contrib-link:hover {
+    border-color: var(--purple-text);
+    background: rgba(124, 108, 240, 0.1);
+    transform: translateY(-1px);
+}
+
+.github-contrib-grid {
+    display: grid;
+    grid-template-rows: repeat(7, 1fr);
+    grid-auto-flow: column;
+    gap: 4px;
+    padding: 6px 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.github-contrib-grid::-webkit-scrollbar {
+    height: 6px;
+}
+.github-contrib-grid::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.github-contrib-cell {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    background: var(--ink-raised);
+    border: 1px solid var(--border);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.github-contrib-cell:hover {
+    transform: scale(1.35);
+    z-index: 5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.github-contrib-cell.level-0 {
+    background: var(--ink-raised);
+    border-color: var(--border);
+}
+
+.github-contrib-cell.level-1 {
+    background: rgba(124, 108, 240, 0.35);
+    border-color: rgba(124, 108, 240, 0.35);
+}
+
+.github-contrib-cell.level-2 {
+    background: rgba(124, 108, 240, 0.55);
+    border-color: rgba(124, 108, 240, 0.55);
+}
+
+.github-contrib-cell.level-3 {
+    background: rgba(124, 108, 240, 0.78);
+    border-color: rgba(124, 108, 240, 0.78);
+}
+
+.github-contrib-cell.level-4 {
+    background: var(--purple);
+    border-color: var(--purple);
+    box-shadow: 0 0 8px var(--purple-glow);
+}
+
+.github-contrib-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-sub);
+}
+
+.github-contrib-total {
+    color: var(--text-sub);
+    font-weight: 600;
+}
+
+.github-contrib-legend {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-sub);
+    opacity: 0.85;
+}
+
+.github-contrib-legend .github-contrib-cell {
+    width: 11px;
+    height: 11px;
+    cursor: default;
+}
+
+.github-contrib-legend .github-contrib-cell:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Light mode tints */
+body.light-mode .github-contrib-cell.level-0 {
+    background: rgba(90, 75, 209, 0.06);
+    border-color: rgba(90, 75, 209, 0.15);
+}
+body.light-mode .github-contrib-cell.level-1 {
+    background: rgba(90, 75, 209, 0.28);
+    border-color: rgba(90, 75, 209, 0.28);
+}
+body.light-mode .github-contrib-cell.level-2 {
+    background: rgba(90, 75, 209, 0.48);
+    border-color: rgba(90, 75, 209, 0.48);
+}
+body.light-mode .github-contrib-cell.level-3 {
+    background: rgba(90, 75, 209, 0.70);
+    border-color: rgba(90, 75, 209, 0.70);
+}
+body.light-mode .github-contrib-cell.level-4 {
+    background: #5a4bd1;
+    border-color: #5a4bd1;
+    box-shadow: 0 0 6px rgba(90, 75, 209, 0.35);
+}
+
+@media (max-width: 600px) {
+    .github-contrib {
+        padding: 20px 18px;
+    }
+    .github-contrib-cell {
+        width: 11px;
+        height: 11px;
+    }
+    .github-contrib-header h3 {
+        font-size: 1rem;
+    }
+}
+
     </style>
 </head>
 
@@ -650,6 +1211,10 @@ footer{padding:40px 20px}
             <div class="hero-content reveal">
                 <span class="eyebrow">✦ QA & AUTOMATION INTERN CANDIDATE</span>
                 <h1>Hi, Im <i class="gradient-text">Tharushi</i> <br><i class="gradient-text">Gandarawaththa.</i></h1>
+                <div class="hero-rotator" aria-live="polite">
+                    <span class="hero-rotator-prefix">I'm a</span>
+                    <span class="hero-rotator-text" id="heroRotator"></span>
+                </div>
                 <div class="location-tag">
                     <i data-lucide="map-pin" size="15"></i>
                     <span>Kalagedihena, Sri Lanka</span>
@@ -724,6 +1289,31 @@ footer{padding:40px 20px}
                 </div>
             </div>
 
+            <div class="github-contrib glass-card reveal">
+                <div class="github-contrib-header">
+                    <div>
+                        <span class="section-eyebrow">✦ Coding Activity</span>
+                        <h3>Last 90 Days on GitHub</h3>
+                    </div>
+                    <a href="https://github.com/Trushiii" target="_blank" rel="noopener" class="github-contrib-link">
+                        <i data-lucide="github" size="14"></i> @Trushiii
+                    </a>
+                </div>
+                <div class="github-contrib-grid" id="githubContribGrid"></div>
+                <div class="github-contrib-footer">
+                    <span class="github-contrib-total" id="githubContribTotal">Loading activity...</span>
+                    <div class="github-contrib-legend">
+                        <span>Less</span>
+                        <span class="github-contrib-cell level-0"></span>
+                        <span class="github-contrib-cell level-1"></span>
+                        <span class="github-contrib-cell level-2"></span>
+                        <span class="github-contrib-cell level-3"></span>
+                        <span class="github-contrib-cell level-4"></span>
+                        <span>More</span>
+                    </div>
+                </div>
+            </div>
+
             <h2>How I <span class="gradient-text">Test</span></h2><br>
             <div class="qa-process-grid">
                 <div class="qa-step glass-card reveal">
@@ -752,71 +1342,121 @@ footer{padding:40px 20px}
         <div class="content-container">
 
             <section id="skills" class="section-block">
-                <span class="section-eyebrow reveal">✦ Competencies Matrix</span>
-                <h2 class="section-header reveal">Technical <span class="gradient-text">Capabilities</span></h2>
+    <span class="section-eyebrow reveal">✦ Competencies Matrix</span>
+    <h2 class="section-header reveal">Technical <span class="gradient-text">Capabilities</span></h2>
 
-                <div class="skills-grid">
-                    <div class="skill-card glass-card reveal">
-                        <div class="skill-icon">
-                            <i data-lucide="code-2" size="32"></i>
-                        </div>
-                        <h4>Languages &amp; Scripting</h4>
-                        <div class="chip-list">
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-logo">Java</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-logo">Python</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="skill-logo">HTML</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" class="skill-logo">CSS</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="skill-logo">JavaScript</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL" class="skill-logo">SQL</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" class="skill-logo">Kotlin</span>
-                        </div>
+    <div class="skills-marquee">
+
+        <!-- ROW 1 — LANGUAGES & SCRIPTING -->
+        <div class="skill-row reveal">
+            <div class="skill-row-label">
+                <span class="skill-row-dot"></span>
+                Languages &amp; Scripting
+            </div>
+            <div class="skill-row-marquee">
+                <div class="skill-row-track">
+                    <div class="skill-row-content">
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-logo">Java</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-logo">Python</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="skill-logo">HTML</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" class="skill-logo">CSS</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="skill-logo">JavaScript</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL" class="skill-logo">SQL</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" class="skill-logo">Kotlin</span>
                     </div>
-
-                    <div class="skill-card glass-card reveal">
-                        <div class="skill-icon">
-                            <i data-lucide="wrench" size="32"></i>
-                        </div>
-                        <h4>Tools &amp; Platforms</h4>
-                        <div class="chip-list">
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira" class="skill-logo">Jira</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" class="skill-logo">Postman</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-logo">Git/GitHub</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="Android Studio" class="skill-logo">Android Studio</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="skill-logo">Figma</span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="Swagger" class="skill-logo">Swagger</span>
-                            <span class="skill-chip">
-                                <svg class="skill-logo" viewBox="0 0 24 24" fill="currentColor" style="color: #FF4B4B;">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                                    <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
-                                </svg>
-                                Streamlit
-                            </span>
-                            <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" alt="Playwright" class="skill-logo">Playwright</span>
-                            <span class="skill-chip"><i data-lucide="workflow" class="skill-logo-icon" size="16"></i>GitHub Actions</span>
-                            <span class="skill-chip"><i data-lucide="terminal" class="skill-logo-icon" size="16"></i>Newman</span>
-                        </div>
-                    </div>
-
-                    <div class="skill-card glass-card reveal">
-                        <div class="skill-icon">
-                            <i data-lucide="target" size="32"></i>
-                        </div>
-                        <h4>Core Competencies</h4>
-                        <div class="chip-list">
-                            <span class="skill-chip"><i data-lucide="check-circle-2" class="chip-icon" size="15"></i> Test Case Design &amp; Execution</span>
-                            <span class="skill-chip"><i data-lucide="clipboard-list" class="chip-icon" size="15"></i> Requirements Analysis &amp; Traceability</span>
-                            <span class="skill-chip"><i data-lucide="bug" class="chip-icon" size="15"></i> Defect Tracking &amp; Bug Reporting</span>
-                            <span class="skill-chip"><i data-lucide="search" class="chip-icon" size="15"></i> Manual &amp; Exploratory Testing</span>
-                            <span class="skill-chip"><i data-lucide="plug" class="chip-icon" size="15"></i> API Testing &amp; Validation</span>
-                            <span class="skill-chip"><i data-lucide="cpu" class="chip-icon" size="15"></i> Test Automation Frameworks</span>
-                            <span class="skill-chip"><i data-lucide="rocket" class="chip-icon" size="15"></i> CI/CD Test Integration</span>
-                            <span class="skill-chip"><i data-lucide="refresh-cw" class="chip-icon" size="15"></i> Agile &amp; Scrum</span>
-                            <span class="skill-chip"><i data-lucide="file-text" class="chip-icon" size="15"></i> Test Documentation &amp; Reports</span>
-                            <span class="skill-chip"><i data-lucide="shield-check" class="chip-icon" size="15"></i> Security Testing (SQLi, XSS)</span>
-                        </div>
+                    <div class="skill-row-content" aria-hidden="true">
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" class="skill-logo">Java</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" class="skill-logo">Python</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" class="skill-logo">HTML</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" class="skill-logo">CSS</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" class="skill-logo">JavaScript</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="" class="skill-logo">SQL</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="" class="skill-logo">Kotlin</span>
                     </div>
                 </div>
-            </section>
+            </div>
+        </div>
+
+        <!-- ROW 2 — TOOLS & PLATFORMS (scrolls opposite direction) -->
+        <div class="skill-row reverse reveal">
+            <div class="skill-row-label">
+                <span class="skill-row-dot"></span>
+                Tools &amp; Platforms
+            </div>
+            <div class="skill-row-marquee">
+                <div class="skill-row-track">
+                    <div class="skill-row-content">
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira" class="skill-logo">Jira</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" class="skill-logo">Postman</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-logo">Git/GitHub</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="Android Studio" class="skill-logo">Android Studio</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="skill-logo">Figma</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="Swagger" class="skill-logo">Swagger</span>
+                        <span class="skill-chip">
+                            <svg class="skill-logo" viewBox="0 0 24 24" fill="currentColor" style="color: #FF4B4B;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+                            Streamlit
+                        </span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" alt="Playwright" class="skill-logo">Playwright</span>
+                        <span class="skill-chip"><i data-lucide="workflow" class="skill-logo-icon" size="16"></i>GitHub Actions</span>
+                        <span class="skill-chip"><i data-lucide="terminal" class="skill-logo-icon" size="16"></i>Newman</span>
+                    </div>
+                    <div class="skill-row-content" aria-hidden="true">
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="" class="skill-logo">Jira</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="" class="skill-logo">Postman</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" class="skill-logo">Git/GitHub</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="" class="skill-logo">Android Studio</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="" class="skill-logo">Figma</span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="" class="skill-logo">Swagger</span>
+                        <span class="skill-chip">
+                            <svg class="skill-logo" viewBox="0 0 24 24" fill="currentColor" style="color: #FF4B4B;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+                            Streamlit
+                        </span>
+                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" alt="" class="skill-logo">Playwright</span>
+                        <span class="skill-chip"><i data-lucide="workflow" class="skill-logo-icon" size="16"></i>GitHub Actions</span>
+                        <span class="skill-chip"><i data-lucide="terminal" class="skill-logo-icon" size="16"></i>Newman</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3 — CORE COMPETENCIES -->
+        <div class="skill-row reveal">
+            <div class="skill-row-label">
+                <span class="skill-row-dot"></span>
+                Core Competencies
+            </div>
+            <div class="skill-row-marquee">
+                <div class="skill-row-track">
+                    <div class="skill-row-content">
+                        <span class="skill-chip"><i data-lucide="check-circle-2" class="chip-icon" size="15"></i>Test Case Design &amp; Execution</span>
+                        <span class="skill-chip"><i data-lucide="clipboard-list" class="chip-icon" size="15"></i>Requirements Analysis &amp; Traceability</span>
+                        <span class="skill-chip"><i data-lucide="bug" class="chip-icon" size="15"></i>Defect Tracking &amp; Bug Reporting</span>
+                        <span class="skill-chip"><i data-lucide="search" class="chip-icon" size="15"></i>Manual &amp; Exploratory Testing</span>
+                        <span class="skill-chip"><i data-lucide="plug" class="chip-icon" size="15"></i>API Testing &amp; Validation</span>
+                        <span class="skill-chip"><i data-lucide="cpu" class="chip-icon" size="15"></i>Test Automation Frameworks</span>
+                        <span class="skill-chip"><i data-lucide="rocket" class="chip-icon" size="15"></i>CI/CD Test Integration</span>
+                        <span class="skill-chip"><i data-lucide="refresh-cw" class="chip-icon" size="15"></i>Agile &amp; Scrum</span>
+                        <span class="skill-chip"><i data-lucide="file-text" class="chip-icon" size="15"></i>Test Documentation &amp; Reports</span>
+                        <span class="skill-chip"><i data-lucide="shield-check" class="chip-icon" size="15"></i>Security Testing (SQLi, XSS)</span>
+                    </div>
+                    <div class="skill-row-content" aria-hidden="true">
+                        <span class="skill-chip"><i data-lucide="check-circle-2" class="chip-icon" size="15"></i>Test Case Design &amp; Execution</span>
+                        <span class="skill-chip"><i data-lucide="clipboard-list" class="chip-icon" size="15"></i>Requirements Analysis &amp; Traceability</span>
+                        <span class="skill-chip"><i data-lucide="bug" class="chip-icon" size="15"></i>Defect Tracking &amp; Bug Reporting</span>
+                        <span class="skill-chip"><i data-lucide="search" class="chip-icon" size="15"></i>Manual &amp; Exploratory Testing</span>
+                        <span class="skill-chip"><i data-lucide="plug" class="chip-icon" size="15"></i>API Testing &amp; Validation</span>
+                        <span class="skill-chip"><i data-lucide="cpu" class="chip-icon" size="15"></i>Test Automation Frameworks</span>
+                        <span class="skill-chip"><i data-lucide="rocket" class="chip-icon" size="15"></i>CI/CD Test Integration</span>
+                        <span class="skill-chip"><i data-lucide="refresh-cw" class="chip-icon" size="15"></i>Agile &amp; Scrum</span>
+                        <span class="skill-chip"><i data-lucide="file-text" class="chip-icon" size="15"></i>Test Documentation &amp; Reports</span>
+                        <span class="skill-chip"><i data-lucide="shield-check" class="chip-icon" size="15"></i>Security Testing (SQLi, XSS)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 
             <section id="qa-artifacts" class="section-block">
                 <span class="section-eyebrow reveal">✦ Evidence of Work</span>
@@ -1687,6 +2327,167 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.5 });
     counters.forEach(c => io.observe(c));
 });
+
+// ============================================================
+// HERO ROTATING TITLES
+// ============================================================
+(function initHeroRotator() {
+    const el = document.getElementById('heroRotator');
+    if (!el) return;
+
+    const WORDS = [
+        'QA Engineer',
+        'Automation Enthusiast',
+        'Bug Hunter',
+        'Requirements Analyst',
+        'UAT Coordinator'
+    ];
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    const TYPE_SPEED = 65;
+    const DELETE_SPEED = 30;
+    const PAUSE_AFTER_TYPE = 1800;
+    const PAUSE_AFTER_DELETE = 300;
+
+    function tick() {
+        const word = WORDS[wordIndex];
+
+        if (!deleting) {
+            charIndex++;
+            el.textContent = word.slice(0, charIndex);
+            if (charIndex === word.length) {
+                deleting = true;
+                setTimeout(tick, PAUSE_AFTER_TYPE);
+                return;
+            }
+            setTimeout(tick, TYPE_SPEED);
+        } else {
+            charIndex--;
+            el.textContent = word.slice(0, charIndex);
+            if (charIndex === 0) {
+                deleting = false;
+                wordIndex = (wordIndex + 1) % WORDS.length;
+                setTimeout(tick, PAUSE_AFTER_DELETE);
+                return;
+            }
+            setTimeout(tick, DELETE_SPEED);
+        }
+    }
+
+    // Start after hero reveal completes
+    setTimeout(tick, 1200);
+})();
+
+// ============================================================
+// LIVE GITHUB CONTRIBUTION GRID (last 90 days)
+// ============================================================
+(function initGithubContrib() {
+    const grid = document.getElementById('githubContribGrid');
+    const totalEl = document.getElementById('githubContribTotal');
+    if (!grid || !totalEl) return;
+
+    const USERNAME = 'Trushiii';
+    const DAYS = 90;
+
+    // Build the 91-day window (including today)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const allDays = [];
+    for (let i = DAYS; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        allDays.push({
+            date: d.toISOString().slice(0, 10),
+            count: 0
+        });
+    }
+
+    // Render cells
+    const cellMap = new Map();
+    allDays.forEach(day => {
+        const cell = document.createElement('div');
+        cell.className = 'github-contrib-cell level-0';
+        cell.dataset.date = day.date;
+        cell.title = `${day.date} — no activity`;
+        grid.appendChild(cell);
+        cellMap.set(day.date, cell);
+    });
+
+    // Try cache first (5 min)
+    const CACHE_KEY = 'gh_contrib_' + USERNAME;
+    const CACHE_TTL = 5 * 60 * 1000;
+    try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+        if (cached && Date.now() - cached.t < CACHE_TTL) {
+            applyCounts(cached.data);
+            return;
+        }
+    } catch (e) { /* ignore */ }
+
+    // Fetch recent public events
+    fetch(`https://api.github.com/users/${USERNAME}/events/public?per_page=100`)
+        .then(r => r.ok ? r.json() : [])
+        .then(events => {
+            const counts = {};
+            if (Array.isArray(events)) {
+                events.forEach(ev => {
+                    if (!ev.created_at) return;
+                    const date = ev.created_at.slice(0, 10);
+                    let weight = 1;
+                    // PushEvent: count commits
+                    if (ev.type === 'PushEvent' && ev.payload && Array.isArray(ev.payload.commits)) {
+                        weight = Math.max(1, ev.payload.commits.length);
+                    }
+                    counts[date] = (counts[date] || 0) + weight;
+                });
+            }
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify({
+                    t: Date.now(),
+                    data: counts
+                }));
+            } catch (e) { /* ignore */ }
+            applyCounts(counts);
+        })
+        .catch(() => {
+            totalEl.textContent = 'Activity data unavailable';
+        });
+
+    function applyCounts(counts) {
+        let total = 0;
+        let activeDays = 0;
+
+        allDays.forEach(day => {
+            const count = counts[day.date] || 0;
+            const cell = cellMap.get(day.date);
+            if (!cell) return;
+
+            let level = 0;
+            if (count >= 1 && count <= 2) level = 1;
+            else if (count >= 3 && count <= 5) level = 2;
+            else if (count >= 6 && count <= 9) level = 3;
+            else if (count >= 10) level = 4;
+
+            cell.classList.remove('level-0', 'level-1', 'level-2', 'level-3', 'level-4');
+            cell.classList.add('level-' + level);
+            cell.title = `${day.date} — ${count} ${count === 1 ? 'event' : 'events'}`;
+
+            total += count;
+            if (count > 0) activeDays++;
+        });
+
+        if (total === 0) {
+            totalEl.textContent = 'Quiet quarter — check back soon';
+        } else {
+            totalEl.textContent = `${total} events across ${activeDays} active ${activeDays === 1 ? 'day' : 'days'}`;
+        }
+    }
+})();
+
     </script>
 
 </body>
