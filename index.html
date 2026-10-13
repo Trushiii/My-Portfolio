@@ -225,12 +225,151 @@ nav{top:12px;left:12px;right:12px;padding:.55rem .75rem;border-radius:16px}
 .hero-image img{width:360px;height:400px;object-fit:cover;border-radius:32% 68% 68% 32%/32% 32% 68% 68%;box-shadow:0 25px 60px rgba(0,0,0,.6);animation:waterMorph 8s ease-in-out infinite alternate,heroFloat 5s ease-in-out infinite alternate;border:2px solid var(--border);transition:border-color .5s ease,all .5s ease-in-out}
 @keyframes waterMorph{0%{border-radius:32% 68% 68% 32%/32% 32% 68% 68%}50%{border-radius:52% 48% 30% 70%/50% 60% 40% 50%}100%{border-radius:68% 32% 50% 50%/32% 32% 68% 68%}}
 @keyframes heroFloat{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-12px) rotate(1deg)}}
-.image-badge{position:absolute;top:20px;right:-10px;background:var(--purple);color:#fff;padding:8px 16px;border-radius:50px;font-size:.7rem;font-weight:600;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(124,108,240,.4);min-width:138px;z-index:3}
-.badge-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;animation:badgeDotPulse 1.8s ease-in-out infinite}
-@keyframes badgeDotPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.75),0 0 4px 1px rgba(34,197,94,.9);transform:scale(1)}50%{box-shadow:0 0 0 6px rgba(34,197,94,0),0 0 12px 2px rgba(34,197,94,.55);transform:scale(1.25)}}
-.badge-text{display:inline-block;overflow:hidden;white-space:nowrap;border-right:2px solid rgba(255,255,255,.85);vertical-align:bottom;width:0;padding-right:1px;animation:badgeTyping 4.5s steps(12,end) infinite,badgeCursor .75s step-end infinite}
-@keyframes badgeTyping{0%,8%{width:0}42%{width:12ch}72%{width:12ch}88%,100%{width:0}}
-@keyframes badgeCursor{0%,100%{border-color:rgba(255,255,255,.85)}50%{border-color:transparent}}
+/* ============================================================
+   OPEN-TO-WORK BADGE — Live Status Card
+   ============================================================ */
+.image-badge {
+    position: absolute;
+    top: 20px;
+    right: -10px;
+    padding: 10px 16px 11px;
+    border-radius: 12px;
+    background: rgba(20, 17, 36, 0.78);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid rgba(34, 197, 94, 0.32);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(34, 197, 94, 0.08) inset;
+    min-width: 148px;
+    z-index: 3;
+    text-align: left;
+    animation: badgeGlowPulse 3s ease-in-out infinite;
+}
+
+@keyframes badgeGlowPulse {
+    0%, 100% {
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.35),
+            0 0 0 1px rgba(34, 197, 94, 0.08) inset,
+            0 0 0 0 rgba(34, 197, 94, 0);
+    }
+    50% {
+        box-shadow:
+            0 8px 24px rgba(0, 0, 0, 0.35),
+            0 0 0 1px rgba(34, 197, 94, 0.08) inset,
+            0 0 22px 2px rgba(34, 197, 94, 0.28);
+    }
+}
+
+/* Light mode */
+body.light-mode .image-badge {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(34, 197, 94, 0.35);
+    box-shadow:
+        0 8px 24px rgba(34, 197, 94, 0.12),
+        0 0 0 1px rgba(34, 197, 94, 0.10) inset;
+}
+
+/* Top row — dot + label */
+.badge-status-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3px;
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    flex-shrink: 0;
+    animation: badgeDotPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes badgeDotPulse {
+    0%, 100% {
+        box-shadow:
+            0 0 0 0 rgba(34, 197, 94, 0.75),
+            0 0 4px 1px rgba(34, 197, 94, 0.9);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow:
+            0 0 0 6px rgba(34, 197, 94, 0),
+            0 0 14px 2px rgba(34, 197, 94, 0.55);
+        transform: scale(1.2);
+    }
+}
+
+.badge-status-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #22c55e;
+    line-height: 1;
+  animation: badgeLabelPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes badgeLabelPulse {
+    0%, 100% {
+        text-shadow:
+            0 0 4px rgba(34, 197, 94, 0.7),
+            0 0 8px rgba(34, 197, 94, 0.35);
+        opacity: 1;
+    }
+    50% {
+        text-shadow:
+            0 0 10px rgba(34, 197, 94, 1),
+            0 0 18px rgba(34, 197, 94, 0.75);
+        opacity: 0.85;
+    }
+}
+
+body.light-mode .badge-status-label {
+    color: #16a34a;
+}
+
+/* Second row — sublabel */
+.badge-status-sub {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-main);
+    letter-spacing: -0.1px;
+    line-height: 1.2;
+    padding-left: 16px; /* aligns under label, not under dot */
+}
+
+body.light-mode .badge-status-sub {
+    color: #141327;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .image-badge {
+        top: 10px;
+        right: 0;
+        padding: 8px 13px 9px;
+        min-width: 128px;
+        border-radius: 10px;
+    }
+    .badge-dot {
+        width: 7px;
+        height: 7px;
+    }
+    .badge-status-label {
+        font-size: 0.56rem;
+        letter-spacing: 1.5px;
+    }
+    .badge-status-sub {
+        font-size: 0.72rem;
+        padding-left: 15px;
+    }
+}
 .scroll-indicator{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-sub);font-size:.7rem;font-family:var(--font-mono);animation:bounce 2s ease-in-out infinite}
 .scroll-line{width:1px;height:30px;background:linear-gradient(to bottom,var(--purple),transparent)}
 @keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(10px)}}
@@ -1358,10 +1497,12 @@ body.light-mode .suite-item:hover {
                 <div class="image-wrapper" id="heroImageWrapper">
                     <img src="Formal.jpg" alt="Tharushi Gandarawaththa" loading="lazy" onerror="this.style.display='none'">
                     <div class="image-glow"></div>
-                    <div class="image-badge">
+                <div class="image-badge">
+                    <div class="badge-status-row">
                         <span class="badge-dot"></span>
-                        <span class="badge-text">Open to Work</span>
+                        <span class="badge-status-label">Open to Work</span>
                     </div>
+                </div>
                 </div>
             </div>
             <br><br>
