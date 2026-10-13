@@ -1084,6 +1084,326 @@ body.light-mode .github-contrib-cell.level-4 {
     }
 }
 
+/* ============================================================
+   SKILLS — TEST SUITE LAYOUT
+   ============================================================ */
+.skills-suite {
+    background: var(--ink-soft);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* --- Header bar --- */
+.suite-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: var(--ink-raised);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.suite-title {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.suite-prompt {
+    color: var(--mint-text);
+    font-weight: 700;
+}
+
+.suite-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background: var(--mint-text);
+    margin-left: 2px;
+    vertical-align: middle;
+    animation: suiteCursor 1s step-end infinite;
+}
+
+@keyframes suiteCursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.suite-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.suite-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+    animation: suiteStatusPulse 2s ease-in-out infinite;
+}
+
+@keyframes suiteStatusPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+    50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+
+/* --- Body — 3 columns --- */
+.suite-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+}
+
+.suite-column {
+    background: var(--ink-soft);
+    padding: 22px 20px 24px;
+}
+
+.suite-column-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+    border-bottom: 1px dashed var(--border);
+}
+
+.suite-column-num {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--purple-text);
+    background: rgba(124, 108, 240, 0.12);
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.suite-column-name {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.2px;
+    flex: 1;
+}
+
+.suite-column-count {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-sub);
+    background: var(--ink-raised);
+    padding: 2px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+/* --- Skill list --- */
+.suite-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.suite-item {
+    display: grid;
+    grid-template-columns: 52px 22px 1fr 16px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 8px;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.2s ease;
+    cursor: default;
+}
+
+.suite-item:hover {
+    background: rgba(124, 108, 240, 0.07);
+    transform: translateX(3px);
+}
+
+.suite-tc {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--purple-text);
+    letter-spacing: 0.3px;
+    opacity: 0.85;
+}
+
+.suite-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+.suite-icon-lucide {
+    width: 18px;
+    height: 18px;
+    color: var(--purple-text);
+    stroke-width: 2;
+    flex-shrink: 0;
+}
+
+.suite-name {
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--text-main);
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suite-check {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #22c55e;
+    text-align: center;
+    opacity: 0;
+    animation: suiteCheckIn 0.4s ease forwards;
+}
+
+@keyframes suiteCheckIn {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Staggered check reveal */
+.suite-column:nth-child(1) .suite-item:nth-child(1) .suite-check { animation-delay: 0.05s; }
+.suite-column:nth-child(1) .suite-item:nth-child(2) .suite-check { animation-delay: 0.10s; }
+.suite-column:nth-child(1) .suite-item:nth-child(3) .suite-check { animation-delay: 0.15s; }
+.suite-column:nth-child(1) .suite-item:nth-child(4) .suite-check { animation-delay: 0.20s; }
+.suite-column:nth-child(1) .suite-item:nth-child(5) .suite-check { animation-delay: 0.25s; }
+.suite-column:nth-child(1) .suite-item:nth-child(6) .suite-check { animation-delay: 0.30s; }
+.suite-column:nth-child(1) .suite-item:nth-child(7) .suite-check { animation-delay: 0.35s; }
+.suite-column:nth-child(2) .suite-item:nth-child(1) .suite-check { animation-delay: 0.40s; }
+.suite-column:nth-child(2) .suite-item:nth-child(2) .suite-check { animation-delay: 0.45s; }
+.suite-column:nth-child(2) .suite-item:nth-child(3) .suite-check { animation-delay: 0.50s; }
+.suite-column:nth-child(2) .suite-item:nth-child(4) .suite-check { animation-delay: 0.55s; }
+.suite-column:nth-child(2) .suite-item:nth-child(5) .suite-check { animation-delay: 0.60s; }
+.suite-column:nth-child(2) .suite-item:nth-child(6) .suite-check { animation-delay: 0.65s; }
+.suite-column:nth-child(2) .suite-item:nth-child(7) .suite-check { animation-delay: 0.70s; }
+.suite-column:nth-child(2) .suite-item:nth-child(8) .suite-check { animation-delay: 0.75s; }
+.suite-column:nth-child(2) .suite-item:nth-child(9) .suite-check { animation-delay: 0.80s; }
+.suite-column:nth-child(2) .suite-item:nth-child(10) .suite-check { animation-delay: 0.85s; }
+.suite-column:nth-child(3) .suite-item:nth-child(1) .suite-check { animation-delay: 0.90s; }
+.suite-column:nth-child(3) .suite-item:nth-child(2) .suite-check { animation-delay: 0.95s; }
+.suite-column:nth-child(3) .suite-item:nth-child(3) .suite-check { animation-delay: 1.00s; }
+.suite-column:nth-child(3) .suite-item:nth-child(4) .suite-check { animation-delay: 1.05s; }
+.suite-column:nth-child(3) .suite-item:nth-child(5) .suite-check { animation-delay: 1.10s; }
+.suite-column:nth-child(3) .suite-item:nth-child(6) .suite-check { animation-delay: 1.15s; }
+.suite-column:nth-child(3) .suite-item:nth-child(7) .suite-check { animation-delay: 1.20s; }
+.suite-column:nth-child(3) .suite-item:nth-child(8) .suite-check { animation-delay: 1.25s; }
+.suite-column:nth-child(3) .suite-item:nth-child(9) .suite-check { animation-delay: 1.30s; }
+.suite-column:nth-child(3) .suite-item:nth-child(10) .suite-check { animation-delay: 1.35s; }
+
+/* --- Footer --- */
+.suite-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: var(--ink-raised);
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-sub);
+    letter-spacing: 0.3px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.suite-footer-time {
+    color: var(--mint-text);
+    opacity: 0.75;
+}
+
+/* --- Light mode tweaks --- */
+body.light-mode .skills-suite {
+    box-shadow: 0 8px 30px rgba(90, 75, 209, 0.08);
+}
+
+body.light-mode .suite-column-num {
+    background: rgba(90, 75, 209, 0.1);
+    color: #4a3bc4;
+}
+
+body.light-mode .suite-tc {
+    color: #4a3bc4;
+}
+
+body.light-mode .suite-icon-lucide {
+    color: #4a3bc4;
+}
+
+body.light-mode .suite-item:hover {
+    background: rgba(90, 75, 209, 0.08);
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+    .suite-body {
+        grid-template-columns: 1fr;
+    }
+    .suite-column {
+        padding: 20px 18px;
+    }
+    .suite-item {
+        grid-template-columns: 52px 22px 1fr 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .suite-header {
+        padding: 12px 14px;
+    }
+    .suite-title {
+        font-size: 0.75rem;
+    }
+    .suite-status-label {
+        font-size: 0.62rem;
+    }
+    .suite-item {
+        grid-template-columns: 46px 20px 1fr 14px;
+        gap: 8px;
+        padding: 7px 6px;
+    }
+    .suite-tc {
+        font-size: 0.6rem;
+    }
+    .suite-name {
+        font-size: 0.8rem;
+    }
+    .suite-footer {
+        font-size: 0.6rem;
+        padding: 10px 14px;
+    }
+}
+
     </style>
 </head>
 
@@ -1340,119 +1660,229 @@ body.light-mode .github-contrib-cell.level-4 {
         </section>
 
         <div class="content-container">
-
-            <section id="skills" class="section-block">
+<section id="skills" class="section-block">
     <span class="section-eyebrow reveal">✦ Competencies Matrix</span>
     <h2 class="section-header reveal">Technical <span class="gradient-text">Capabilities</span></h2>
 
-    <div class="skills-marquee">
+    <div class="skills-suite reveal">
 
-        <!-- ROW 1 — LANGUAGES & SCRIPTING -->
-        <div class="skill-row reveal">
-            <div class="skill-row-label">
-                <span class="skill-row-dot"></span>
-                Languages &amp; Scripting
+        <!-- SUITE HEADER -->
+        <div class="suite-header">
+            <div class="suite-title">
+                <span class="suite-prompt">▸</span>
+                skills.test-suite
+                <span class="suite-cursor"></span>
             </div>
-            <div class="skill-row-marquee">
-                <div class="skill-row-track">
-                    <div class="skill-row-content">
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-logo">Java</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="skill-logo">Python</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" class="skill-logo">HTML</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" class="skill-logo">CSS</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" class="skill-logo">JavaScript</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="SQL" class="skill-logo">SQL</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" class="skill-logo">Kotlin</span>
-                    </div>
-                    <div class="skill-row-content" aria-hidden="true">
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="" class="skill-logo">Java</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="" class="skill-logo">Python</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" class="skill-logo">HTML</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" class="skill-logo">CSS</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" class="skill-logo">JavaScript</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="" class="skill-logo">SQL</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="" class="skill-logo">Kotlin</span>
-                    </div>
-                </div>
+            <div class="suite-status">
+                <span class="suite-status-dot"></span>
+                <span class="suite-status-label">27 skills · all passing</span>
             </div>
         </div>
 
-        <!-- ROW 2 — TOOLS & PLATFORMS (scrolls opposite direction) -->
-        <div class="skill-row reverse reveal">
-            <div class="skill-row-label">
-                <span class="skill-row-dot"></span>
-                Tools &amp; Platforms
-            </div>
-            <div class="skill-row-marquee">
-                <div class="skill-row-track">
-                    <div class="skill-row-content">
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="Jira" class="skill-logo">Jira</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="Postman" class="skill-logo">Postman</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="skill-logo">Git/GitHub</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="Android Studio" class="skill-logo">Android Studio</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" class="skill-logo">Figma</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="Swagger" class="skill-logo">Swagger</span>
-                        <span class="skill-chip">
-                            <svg class="skill-logo" viewBox="0 0 24 24" fill="currentColor" style="color: #FF4B4B;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
-                            Streamlit
-                        </span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" alt="Playwright" class="skill-logo">Playwright</span>
-                        <span class="skill-chip"><i data-lucide="workflow" class="skill-logo-icon" size="16"></i>GitHub Actions</span>
-                        <span class="skill-chip"><i data-lucide="terminal" class="skill-logo-icon" size="16"></i>Newman</span>
-                    </div>
-                    <div class="skill-row-content" aria-hidden="true">
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" alt="" class="skill-logo">Jira</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" alt="" class="skill-logo">Postman</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" class="skill-logo">Git/GitHub</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" alt="" class="skill-logo">Android Studio</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="" class="skill-logo">Figma</span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" alt="" class="skill-logo">Swagger</span>
-                        <span class="skill-chip">
-                            <svg class="skill-logo" viewBox="0 0 24 24" fill="currentColor" style="color: #FF4B4B;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
-                            Streamlit
-                        </span>
-                        <span class="skill-chip"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" alt="" class="skill-logo">Playwright</span>
-                        <span class="skill-chip"><i data-lucide="workflow" class="skill-logo-icon" size="16"></i>GitHub Actions</span>
-                        <span class="skill-chip"><i data-lucide="terminal" class="skill-logo-icon" size="16"></i>Newman</span>
-                    </div>
+        <!-- SUITE BODY — 3 COLUMNS -->
+        <div class="suite-body">
+
+            <!-- COLUMN 1 — LANGUAGES -->
+            <div class="suite-column">
+                <div class="suite-column-head">
+                    <span class="suite-column-num">SUITE 01</span>
+                    <span class="suite-column-name">Languages &amp; Scripting</span>
+                    <span class="suite-column-count">7</span>
                 </div>
+                <ul class="suite-list">
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-01</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Java</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-02</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Python</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-03</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">HTML</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-04</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">CSS</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-05</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">JavaScript</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-06</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">SQL</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-07</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Kotlin</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                </ul>
             </div>
+
+            <!-- COLUMN 2 — TOOLS -->
+            <div class="suite-column">
+                <div class="suite-column-head">
+                    <span class="suite-column-num">SUITE 02</span>
+                    <span class="suite-column-name">Tools &amp; Platforms</span>
+                    <span class="suite-column-count">10</span>
+                </div>
+                <ul class="suite-list">
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-08</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Jira</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-09</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Postman</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-10</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Git / GitHub</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-11</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Playwright</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-12</span>
+                        <i data-lucide="terminal" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Newman</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-13</span>
+                        <i data-lucide="workflow" class="suite-icon-lucide"></i>
+                        <span class="suite-name">GitHub Actions</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-14</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Swagger / OpenAPI</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-15</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Android Studio</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-16</span>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="suite-icon" alt="">
+                        <span class="suite-name">Figma</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-17</span>
+                        <svg class="suite-icon" viewBox="0 0 24 24" fill="currentColor" style="color:#FF4B4B;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+                        <span class="suite-name">Streamlit</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- COLUMN 3 — COMPETENCIES -->
+            <div class="suite-column">
+                <div class="suite-column-head">
+                    <span class="suite-column-num">SUITE 03</span>
+                    <span class="suite-column-name">Core Competencies</span>
+                    <span class="suite-column-count">10</span>
+                </div>
+                <ul class="suite-list">
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-18</span>
+                        <i data-lucide="check-circle-2" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Test Case Design &amp; Execution</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-19</span>
+                        <i data-lucide="clipboard-list" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Requirements Analysis</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-20</span>
+                        <i data-lucide="bug" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Defect Tracking &amp; Reporting</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-21</span>
+                        <i data-lucide="search" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Manual &amp; Exploratory Testing</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-22</span>
+                        <i data-lucide="plug" class="suite-icon-lucide"></i>
+                        <span class="suite-name">API Testing &amp; Validation</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-23</span>
+                        <i data-lucide="cpu" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Test Automation Frameworks</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-24</span>
+                        <i data-lucide="rocket" class="suite-icon-lucide"></i>
+                        <span class="suite-name">CI/CD Test Integration</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-25</span>
+                        <i data-lucide="refresh-cw" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Agile &amp; Scrum</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-26</span>
+                        <i data-lucide="file-text" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Test Documentation &amp; Reports</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                    <li class="suite-item">
+                        <span class="suite-tc">TC-27</span>
+                        <i data-lucide="shield-check" class="suite-icon-lucide"></i>
+                        <span class="suite-name">Security Testing (SQLi, XSS)</span>
+                        <span class="suite-check">✓</span>
+                    </li>
+                </ul>
+            </div>
+
         </div>
 
-        <!-- ROW 3 — CORE COMPETENCIES -->
-        <div class="skill-row reveal">
-            <div class="skill-row-label">
-                <span class="skill-row-dot"></span>
-                Core Competencies
-            </div>
-            <div class="skill-row-marquee">
-                <div class="skill-row-track">
-                    <div class="skill-row-content">
-                        <span class="skill-chip"><i data-lucide="check-circle-2" class="chip-icon" size="15"></i>Test Case Design &amp; Execution</span>
-                        <span class="skill-chip"><i data-lucide="clipboard-list" class="chip-icon" size="15"></i>Requirements Analysis &amp; Traceability</span>
-                        <span class="skill-chip"><i data-lucide="bug" class="chip-icon" size="15"></i>Defect Tracking &amp; Bug Reporting</span>
-                        <span class="skill-chip"><i data-lucide="search" class="chip-icon" size="15"></i>Manual &amp; Exploratory Testing</span>
-                        <span class="skill-chip"><i data-lucide="plug" class="chip-icon" size="15"></i>API Testing &amp; Validation</span>
-                        <span class="skill-chip"><i data-lucide="cpu" class="chip-icon" size="15"></i>Test Automation Frameworks</span>
-                        <span class="skill-chip"><i data-lucide="rocket" class="chip-icon" size="15"></i>CI/CD Test Integration</span>
-                        <span class="skill-chip"><i data-lucide="refresh-cw" class="chip-icon" size="15"></i>Agile &amp; Scrum</span>
-                        <span class="skill-chip"><i data-lucide="file-text" class="chip-icon" size="15"></i>Test Documentation &amp; Reports</span>
-                        <span class="skill-chip"><i data-lucide="shield-check" class="chip-icon" size="15"></i>Security Testing (SQLi, XSS)</span>
-                    </div>
-                    <div class="skill-row-content" aria-hidden="true">
-                        <span class="skill-chip"><i data-lucide="check-circle-2" class="chip-icon" size="15"></i>Test Case Design &amp; Execution</span>
-                        <span class="skill-chip"><i data-lucide="clipboard-list" class="chip-icon" size="15"></i>Requirements Analysis &amp; Traceability</span>
-                        <span class="skill-chip"><i data-lucide="bug" class="chip-icon" size="15"></i>Defect Tracking &amp; Bug Reporting</span>
-                        <span class="skill-chip"><i data-lucide="search" class="chip-icon" size="15"></i>Manual &amp; Exploratory Testing</span>
-                        <span class="skill-chip"><i data-lucide="plug" class="chip-icon" size="15"></i>API Testing &amp; Validation</span>
-                        <span class="skill-chip"><i data-lucide="cpu" class="chip-icon" size="15"></i>Test Automation Frameworks</span>
-                        <span class="skill-chip"><i data-lucide="rocket" class="chip-icon" size="15"></i>CI/CD Test Integration</span>
-                        <span class="skill-chip"><i data-lucide="refresh-cw" class="chip-icon" size="15"></i>Agile &amp; Scrum</span>
-                        <span class="skill-chip"><i data-lucide="file-text" class="chip-icon" size="15"></i>Test Documentation &amp; Reports</span>
-                        <span class="skill-chip"><i data-lucide="shield-check" class="chip-icon" size="15"></i>Security Testing (SQLi, XSS)</span>
-                    </div>
-                </div>
-            </div>
+        <!-- SUITE FOOTER -->
+        <div class="suite-footer">
+            <span>▸ Ran 27 checks in 0.42s · all pass</span>
+            <span class="suite-footer-time" id="suiteTime"></span>
         </div>
 
     </div>
@@ -2486,6 +2916,17 @@ document.addEventListener('DOMContentLoaded', () => {
             totalEl.textContent = `${total} events across ${activeDays} active ${activeDays === 1 ? 'day' : 'days'}`;
         }
     }
+})();
+
+// ============================================================
+// SKILLS SUITE — fake "last run" timestamp
+// ============================================================
+(function initSuiteTime() {
+    const el = document.getElementById('suiteTime');
+    if (!el) return;
+    const now = new Date();
+    const t = now.toTimeString().slice(0, 8);
+    el.textContent = 'last run: ' + t;
 })();
 
     </script>
