@@ -444,7 +444,7 @@ body.light-mode .skill-icon,body.light-mode .chip-icon,body.light-mode .skill-lo
 @media (max-width:900px){.artifacts-grid{grid-template-columns:1fr}}
 
 /* PROJECTS */
-.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
 .projects-grid .glass-card{margin-bottom:0}
 .test-runner{background:var(--ink);border:1px solid var(--border);border-radius:10px;margin-top:16px;overflow:hidden;transition:var(--transition-fast)}
 .test-runner-header{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--ink-raised);border-bottom:1px solid var(--border)}
@@ -649,7 +649,10 @@ body.light-mode .contact-btn[data-brand="medium"] .contact-icon-wrapper{
 .footer-socials svg{width:20px;height:20px}
 
 /* RESPONSIVE */
-@media (max-width:900px){
+@media (max-width: 1100px) {
+    .projects-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+}
+@media (max-width: 900px){
 .skills-grid{grid-template-columns:1fr}
 .skill-card{min-height:auto}
 .projects-grid{grid-template-columns:1fr}
@@ -904,187 +907,6 @@ body.light-mode .hero-rotator-text::after {
 }
 
 /* ============================================================
-   GITHUB CONTRIBUTION GRID
-   ============================================================ */
-.github-contrib {
-    padding: 28px 30px;
-    margin-bottom: 40px;
-}
-
-.github-contrib-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-    gap: 16px;
-    flex-wrap: wrap;
-}
-
-.github-contrib-header h3 {
-    font-family: var(--font-body);
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--text-main);
-    margin-top: 6px;
-}
-
-.github-contrib-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.76rem;
-    color: var(--purple-text);
-    text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--ink-raised);
-    transition: var(--transition-fast);
-    white-space: nowrap;
-}
-
-.github-contrib-link:hover {
-    border-color: var(--purple-text);
-    background: rgba(124, 108, 240, 0.1);
-    transform: translateY(-1px);
-}
-
-.github-contrib-grid {
-    display: grid;
-    grid-template-rows: repeat(7, 1fr);
-    grid-auto-flow: column;
-    gap: 4px;
-    padding: 6px 0;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-}
-
-.github-contrib-grid::-webkit-scrollbar {
-    height: 6px;
-}
-.github-contrib-grid::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 3px;
-}
-
-.github-contrib-cell {
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    background: var(--ink-raised);
-    border: 1px solid var(--border);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    position: relative;
-    cursor: pointer;
-}
-
-.github-contrib-cell:hover {
-    transform: scale(1.35);
-    z-index: 5;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-}
-
-.github-contrib-cell.level-0 {
-    background: var(--ink-raised);
-    border-color: var(--border);
-}
-
-.github-contrib-cell.level-1 {
-    background: rgba(124, 108, 240, 0.35);
-    border-color: rgba(124, 108, 240, 0.35);
-}
-
-.github-contrib-cell.level-2 {
-    background: rgba(124, 108, 240, 0.55);
-    border-color: rgba(124, 108, 240, 0.55);
-}
-
-.github-contrib-cell.level-3 {
-    background: rgba(124, 108, 240, 0.78);
-    border-color: rgba(124, 108, 240, 0.78);
-}
-
-.github-contrib-cell.level-4 {
-    background: var(--purple);
-    border-color: var(--purple);
-    box-shadow: 0 0 8px var(--purple-glow);
-}
-
-.github-contrib-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 16px;
-    gap: 12px;
-    flex-wrap: wrap;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-sub);
-}
-
-.github-contrib-total {
-    color: var(--text-sub);
-    font-weight: 600;
-}
-
-.github-contrib-legend {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: var(--text-sub);
-    opacity: 0.85;
-}
-
-.github-contrib-legend .github-contrib-cell {
-    width: 11px;
-    height: 11px;
-    cursor: default;
-}
-
-.github-contrib-legend .github-contrib-cell:hover {
-    transform: none;
-    box-shadow: none;
-}
-
-/* Light mode tints */
-body.light-mode .github-contrib-cell.level-0 {
-    background: rgba(90, 75, 209, 0.06);
-    border-color: rgba(90, 75, 209, 0.15);
-}
-body.light-mode .github-contrib-cell.level-1 {
-    background: rgba(90, 75, 209, 0.28);
-    border-color: rgba(90, 75, 209, 0.28);
-}
-body.light-mode .github-contrib-cell.level-2 {
-    background: rgba(90, 75, 209, 0.48);
-    border-color: rgba(90, 75, 209, 0.48);
-}
-body.light-mode .github-contrib-cell.level-3 {
-    background: rgba(90, 75, 209, 0.70);
-    border-color: rgba(90, 75, 209, 0.70);
-}
-body.light-mode .github-contrib-cell.level-4 {
-    background: #5a4bd1;
-    border-color: #5a4bd1;
-    box-shadow: 0 0 6px rgba(90, 75, 209, 0.35);
-}
-
-@media (max-width: 600px) {
-    .github-contrib {
-        padding: 20px 18px;
-    }
-    .github-contrib-cell {
-        width: 11px;
-        height: 11px;
-    }
-    .github-contrib-header h3 {
-        font-size: 1rem;
-    }
-}
-
-/* ============================================================
    SKILLS — TEST SUITE LAYOUT
    ============================================================ */
 .skills-suite {
@@ -1321,27 +1143,6 @@ body.light-mode .github-contrib-cell.level-4 {
 .suite-column:nth-child(3) .suite-item:nth-child(9) .suite-check { animation-delay: 1.30s; }
 .suite-column:nth-child(3) .suite-item:nth-child(10) .suite-check { animation-delay: 1.35s; }
 
-/* --- Footer --- */
-.suite-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 20px;
-    background: var(--ink-raised);
-    border-top: 1px solid var(--border);
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    color: var(--text-sub);
-    letter-spacing: 0.3px;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.suite-footer-time {
-    color: var(--mint-text);
-    opacity: 0.75;
-}
-
 /* --- Light mode tweaks --- */
 body.light-mode .skills-suite {
     box-shadow: 0 8px 30px rgba(90, 75, 209, 0.08);
@@ -1398,10 +1199,12 @@ body.light-mode .suite-item:hover {
     .suite-name {
         font-size: 0.8rem;
     }
-    .suite-footer {
-        font-size: 0.6rem;
-        padding: 10px 14px;
-    }
+}
+.projects-grid .glass-card p {
+    text-align: left;
+    text-justify: auto;
+    hyphens: none;
+    -webkit-hyphens: none;
 }
 
     </style>
@@ -1609,31 +1412,6 @@ body.light-mode .suite-item:hover {
                 </div>
             </div>
 
-            <div class="github-contrib glass-card reveal">
-                <div class="github-contrib-header">
-                    <div>
-                        <span class="section-eyebrow">✦ Coding Activity</span>
-                        <h3>Last 90 Days on GitHub</h3>
-                    </div>
-                    <a href="https://github.com/Trushiii" target="_blank" rel="noopener" class="github-contrib-link">
-                        <i data-lucide="github" size="14"></i> @Trushiii
-                    </a>
-                </div>
-                <div class="github-contrib-grid" id="githubContribGrid"></div>
-                <div class="github-contrib-footer">
-                    <span class="github-contrib-total" id="githubContribTotal">Loading activity...</span>
-                    <div class="github-contrib-legend">
-                        <span>Less</span>
-                        <span class="github-contrib-cell level-0"></span>
-                        <span class="github-contrib-cell level-1"></span>
-                        <span class="github-contrib-cell level-2"></span>
-                        <span class="github-contrib-cell level-3"></span>
-                        <span class="github-contrib-cell level-4"></span>
-                        <span>More</span>
-                    </div>
-                </div>
-            </div>
-
             <h2>How I <span class="gradient-text">Test</span></h2><br>
             <div class="qa-process-grid">
                 <div class="qa-step glass-card reveal">
@@ -1685,41 +1463,48 @@ body.light-mode .suite-item:hover {
             <!-- COLUMN 1 — LANGUAGES -->
             <div class="suite-column">
                 <div class="suite-column-head">
-                    <span class="suite-column-num">01</span>
+                    <span class="suite-column-num">SUITE 01</span>
                     <span class="suite-column-name">Languages &amp; Scripting</span>
                 </div>
                 <ul class="suite-list">
                     <li class="suite-item">
+                        <span class="suite-tc">01</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Java</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">02</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Python</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">03</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">HTML</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">04</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">CSS</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">05</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">JavaScript</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">06</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">SQL</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">07</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Kotlin</span>
                         <span class="suite-check">✓</span>
@@ -1730,56 +1515,66 @@ body.light-mode .suite-item:hover {
             <!-- COLUMN 2 — TOOLS -->
             <div class="suite-column">
                 <div class="suite-column-head">
-                    <span class="suite-column-num">02</span>
+                    <span class="suite-column-num">SUITE 02</span>
                     <span class="suite-column-name">Tools &amp; Platforms</span>
                 </div>
                 <ul class="suite-list">
                     <li class="suite-item">
+                        <span class="suite-tc">08</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Jira</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">09</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Postman</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">10</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Git / GitHub</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">11</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Playwright</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">12</span>
                         <i data-lucide="terminal" class="suite-icon-lucide"></i>
                         <span class="suite-name">Newman</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">13</span>
                         <i data-lucide="workflow" class="suite-icon-lucide"></i>
                         <span class="suite-name">GitHub Actions</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">14</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Swagger / OpenAPI</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">15</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Android Studio</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">16</span>
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="suite-icon" alt="">
                         <span class="suite-name">Figma</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">17</span>
                         <svg class="suite-icon" viewBox="0 0 24 24" fill="currentColor" style="color:#FF4B4B;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
                         <span class="suite-name">Streamlit</span>
                         <span class="suite-check">✓</span>
@@ -1790,56 +1585,66 @@ body.light-mode .suite-item:hover {
             <!-- COLUMN 3 — COMPETENCIES -->
             <div class="suite-column">
                 <div class="suite-column-head">
-                    <span class="suite-column-num">03</span>
+                    <span class="suite-column-num">SUITE 03</span>
                     <span class="suite-column-name">Core Competencies</span>
                 </div>
                 <ul class="suite-list">
                     <li class="suite-item">
+                        <span class="suite-tc">18</span>
                         <i data-lucide="check-circle-2" class="suite-icon-lucide"></i>
                         <span class="suite-name">Test Case Design &amp; Execution</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">19</span>
                         <i data-lucide="clipboard-list" class="suite-icon-lucide"></i>
                         <span class="suite-name">Requirements Analysis</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">20</span>
                         <i data-lucide="bug" class="suite-icon-lucide"></i>
                         <span class="suite-name">Defect Tracking &amp; Reporting</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">21</span>
                         <i data-lucide="search" class="suite-icon-lucide"></i>
                         <span class="suite-name">Manual &amp; Exploratory Testing</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">22</span>
                         <i data-lucide="plug" class="suite-icon-lucide"></i>
                         <span class="suite-name">API Testing &amp; Validation</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">23</span>
                         <i data-lucide="cpu" class="suite-icon-lucide"></i>
                         <span class="suite-name">Test Automation Frameworks</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">24</span>
                         <i data-lucide="rocket" class="suite-icon-lucide"></i>
                         <span class="suite-name">CI/CD Test Integration</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">25</span>
                         <i data-lucide="refresh-cw" class="suite-icon-lucide"></i>
                         <span class="suite-name">Agile &amp; Scrum</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">26</span>
                         <i data-lucide="file-text" class="suite-icon-lucide"></i>
                         <span class="suite-name">Test Documentation &amp; Reports</span>
                         <span class="suite-check">✓</span>
                     </li>
                     <li class="suite-item">
+                        <span class="suite-tc">27</span>
                         <i data-lucide="shield-check" class="suite-icon-lucide"></i>
                         <span class="suite-name">Security Testing (SQLi, XSS)</span>
                         <span class="suite-check">✓</span>
@@ -1847,12 +1652,6 @@ body.light-mode .suite-item:hover {
                 </ul>
             </div>
 
-        </div>
-
-        <!-- SUITE FOOTER -->
-        <div class="suite-footer">
-            <span>▸ Ran 27 checks in 0.42s · all pass</span>
-            <span class="suite-footer-time" id="suiteTime"></span>
         </div>
 
     </div>
@@ -1897,22 +1696,7 @@ body.light-mode .suite-item:hover {
                         <span class="tag">API</span><span class="tag mint">Postman</span>
                         <h3 class="project-title">API Test Suite</h3>
                         <p>Production-grade API test automation with 19 requests and 34 assertions against a public REST API. Covers auth chaining, CRUD, schema validation, response-time checks, and security tests (SQL injection, XSS). Runs in CI via Newman + GitHub Actions with rich HTML reports.</p>
-                        <a href="https://github.com/Trushiii/Api-test-suite" class="project-link">View Repository →</a>
-                        <div class="test-runner">
-                            <div class="test-runner-header">
-                                <span class="test-runner-dot red"></span>
-                                <span class="test-runner-dot yellow"></span>
-                                <span class="test-runner-dot green"></span>
-                                <span class="test-runner-title">tharushi@portfolio: ~/api-test-suite</span>
-                            </div>
-                            <div class="test-runner-body" id="testRunnerBodyApi">
-                                <div class="test-runner-hint">Click "Run Newman Suite" below to simulate an API test run.</div>
-                            </div>
-                        </div>
-                        <button class="test-run-btn" data-target="testRunnerBodyApi" data-flavor="api">
-                            <i data-lucide="play" size="16"></i>
-                            Run Newman Suite
-                        </button>
+                        <a href="https://github.com/Trushiii/Api-test-suite" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -1923,22 +1707,7 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Automation</span><span class="tag mint">Playwright</span>
                         <h3 class="project-title">Playwright E2E Framework</h3>
                         <p>Production-grade test automation framework using Page Object Model, data-driven tests, cross-browser execution, and CI/CD via GitHub Actions. Tests a local e-commerce app with 14 test cases across login, inventory, cart, and checkout — running across 3 browsers for 42 total executions.</p>
-                        <a href="https://github.com/Trushiii/playwright-e2e-framework" class="project-link">View Repository →</a>
-                        <div class="test-runner" id="testRunner">
-                            <div class="test-runner-header">
-                                <span class="test-runner-dot red"></span>
-                                <span class="test-runner-dot yellow"></span>
-                                <span class="test-runner-dot green"></span>
-                                <span class="test-runner-title">tharushi@portfolio: ~/playwright-e2e</span>
-                            </div>
-                            <div class="test-runner-body" id="testRunnerBody">
-                                <div class="test-runner-hint">Click "Run Demo Tests" below to simulate a Playwright test run.</div>
-                            </div>
-                        </div>
-                        <button class="test-run-btn" data-target="testRunnerBody" data-flavor="playwright">
-                            <i data-lucide="play" size="16"></i>
-                            Run Demo Tests
-                        </button>
+                        <a href="https://github.com/Trushiii/playwright-e2e-framework" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -1949,7 +1718,7 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Education</span><span class="tag mint">QA/BA</span>
                         <h3 class="project-title">Univize</h3>
                         <p>A university-centric social ecosystem for resource sharing. Owned QA strategy across 11 app screens and worked with developers to log and confirm defect fixes.</p>
-                        <a href="https://github.com/NightKing-V/FacultySocialApp" class="project-link">View Repository →</a>
+                        <a href="https://github.com/NightKing-V/FacultySocialApp" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -1960,7 +1729,7 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Mobile</span><span class="tag mint">QA</span>
                         <h3 class="project-title">UniCollab</h3>
                         <p>A task management mobile app helping university students organise coursework, deadlines, and personal tasks in one place.</p>
-                        <a href="https://github.com/SupunDisanayaka/UniCollab" class="project-link">View Repository →</a>
+                        <a href="https://github.com/SupunDisanayaka/UniCollab" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -1971,7 +1740,7 @@ body.light-mode .suite-item:hover {
                         <span class="tag">AI</span><span class="tag mint">NLP</span>
                         <h3 class="project-title">Sentiment Analyser</h3>
                         <p>Integrated Reddit's API to collect real discussion data, then applied AI-based sentiment analysis to extract and classify opinion trends.</p>
-                        <a href="https://github.com/Trushiii/SentimentAnalyser" class="project-link">View Repository →</a>
+                        <a href="https://github.com/Trushiii/SentimentAnalyser" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -1982,8 +1751,8 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Complex Systems</span><span class="tag mint">ML</span>
                         <h3 class="project-title">Tumor Growth Simulation</h3>
                         <p>A NetLogo simulation of tumor cell growth exported through BehaviorSpace and used to train a Random Forest classifier, deployed end to end as a live Streamlit app.</p>
-                        <a href="https://tumor-growth-predictor-stcs.streamlit.app/" class="project-link">View Live App →</a>
-                        <a href="https://github.com/Trushiii/Tumor-Growth-Predictor" class="project-link">View Repository →</a>
+                        <a href="https://tumor-growth-predictor-stcs.streamlit.app/" class="project-link">View Live App</a><br>
+                        <a href="https://github.com/Trushiii/Tumor-Growth-Predictor" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -1994,8 +1763,8 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Complex Systems</span><span class="tag mint">Agent Tech</span>
                         <h3 class="project-title">Traffic &amp; EV Charging Simulation</h3>
                         <p>Extending NetLogo's Traffic Grid model with EV-specific logic — charging stations, battery levels, charging behaviour — to study how station placement affects congestion.</p>
-                        <a href="https://ev-traffic-app.streamlit.app/" class="project-link">View Live App →</a>
-                        <a href="https://github.com/Trushiii/EV-Traffic-App" class="project-link">View Repository →</a>
+                        <a href="https://ev-traffic-app.streamlit.app/" class="project-link">View Live App</a><br>
+                        <a href="https://github.com/Trushiii/EV-Traffic-App" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -2006,7 +1775,7 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Game Dev</span><span class="tag mint">Logic</span>
                         <h3 class="project-title">PuzzlePlex</h3>
                         <p>An interactive, logic-based puzzle challenge with a focus on smooth interactions and algorithmic complexity, featuring custom level scaling and state management.</p>
-                        <a href="https://github.com/Trushiii/PuzzlePlex" class="project-link">View Repository →</a>
+                        <a href="https://github.com/Trushiii/PuzzlePlex" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
@@ -2017,8 +1786,8 @@ body.light-mode .suite-item:hover {
                         <span class="tag">Web</span><span class="tag mint">Research Tool</span>
                         <h3 class="project-title">SpiceGarden</h3>
                         <p>A restaurant ordering site built as a live data-collection instrument to study how prompt engineering shapes user interaction and feedback loops.</p>
-                        <a href="https://trushiii.github.io/SpiceGarden/" class="project-link">View Live Web →</a>
-                        <a href="https://github.com/Trushiii/SpiceGarden" class="project-link">View Repository →</a>
+                        <a href="https://trushiii.github.io/SpiceGarden/" class="project-link">View Live Web</a><br>
+                        <a href="https://github.com/Trushiii/SpiceGarden" class="project-link">View Repository</a>
                     </div>
                 </div>
             </section>
@@ -2554,82 +2323,6 @@ document.addEventListener('mouseleave', () => {
     wrapper.style.transform = `rotateY(0deg) rotateX(0deg)`;
 });
 
-// INTERACTIVE TEST-RUNNER DEMO
-(function initTestRunners() {
-    const buttons = document.querySelectorAll('.test-run-btn');
-    if (!buttons.length) return;
-    const TEST_CASES = {
-        playwright: [
-            { id: 'TC_LOGIN_001', name: 'Login with valid credentials' },
-            { id: 'TC_INV_002', name: 'Add single item to cart' },
-            { id: 'TC_CART_001', name: 'Cart shows added items' },
-            { id: 'TC_CHECKOUT_001', name: 'Complete full checkout flow' },
-            { id: 'TC_NEG_006', name: 'XSS payload sanitized safely' }
-        ],
-        api: [
-            { id: 'SETUP', name: 'Get auth token' },
-            { id: 'TC_AUTH_001', name: 'Valid credentials return token' },
-            { id: 'TC_BK_001', name: 'Create new booking' },
-            { id: 'TC_BK_003', name: 'Update booking (PUT)' },
-            { id: 'TC_NEG_006', name: 'XSS payload stored safely' }
-        ]
-    };
-    const FINAL_TEXT = {
-        playwright: '✓ 5 passed (1.42s)',
-        api: '✓ 5 passed · 34 assertions (2.10s)'
-    };
-    buttons.forEach(btn => {
-        const targetId = btn.dataset.target;
-        const flavor = btn.dataset.flavor || 'playwright';
-        const bodyEl = document.getElementById(targetId);
-        if (!bodyEl) return;
-        const testCases = TEST_CASES[flavor] || TEST_CASES.playwright;
-        const finalText = FINAL_TEXT[flavor] || FINAL_TEXT.playwright;
-        let running = false;
-        btn.addEventListener('click', () => {
-            if (running) return;
-            running = true;
-            btn.disabled = true;
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Running...';
-            bodyEl.innerHTML = '';
-            const info = document.createElement('div');
-            info.className = 'test-runner-line';
-            info.style.color = 'var(--text-sub)';
-            info.textContent = flavor === 'api' ? 'Running 19 requests using Newman...' : 'Running 5 tests using 4 workers...';
-            bodyEl.appendChild(info);
-            testCases.forEach((tc, i) => {
-                setTimeout(() => {
-                    const line = document.createElement('div');
-                    line.className = 'test-runner-line';
-                    line.innerHTML = '<span class="test-runner-check">✓</span><span class="test-runner-id">' + tc.id + '</span><span>— ' + tc.name + '</span>';
-                    bodyEl.appendChild(line);
-                    bodyEl.scrollTop = bodyEl.scrollHeight;
-                }, 350 + i * 220);
-            });
-            const totalMs = 350 + testCases.length * 220 + 300;
-            setTimeout(() => {
-                const final = document.createElement('div');
-                final.className = 'test-runner-final';
-                final.textContent = finalText;
-                bodyEl.appendChild(final);
-                bodyEl.scrollTop = bodyEl.scrollHeight;
-            }, totalMs);
-            setTimeout(() => {
-                const reset = document.createElement('div');
-                reset.className = 'test-runner-hint';
-                reset.style.marginTop = '8px';
-                reset.textContent = '✓ Test run complete. Click again to re-run.';
-                bodyEl.appendChild(reset);
-                btn.disabled = false;
-                btn.innerHTML = originalHTML;
-                if (window.lucide) lucide.createIcons();
-                running = false;
-            }, totalMs + 800);
-        });
-    });
-})();
-
 // FORCE LUCIDE ICONS
 function renderIcons() {
     if (typeof lucide !== 'undefined' && lucide.createIcons) { lucide.createIcons(); return true; }
@@ -2781,125 +2474,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(tick, 1200);
 })();
 
-// ============================================================
-// LIVE GITHUB CONTRIBUTION GRID (last 90 days)
-// ============================================================
-(function initGithubContrib() {
-    const grid = document.getElementById('githubContribGrid');
-    const totalEl = document.getElementById('githubContribTotal');
-    if (!grid || !totalEl) return;
-
-    const USERNAME = 'Trushiii';
-    const DAYS = 90;
-
-    // Build the 91-day window (including today)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const allDays = [];
-    for (let i = DAYS; i >= 0; i--) {
-        const d = new Date(today);
-        d.setDate(d.getDate() - i);
-        allDays.push({
-            date: d.toISOString().slice(0, 10),
-            count: 0
-        });
-    }
-
-    // Render cells
-    const cellMap = new Map();
-    allDays.forEach(day => {
-        const cell = document.createElement('div');
-        cell.className = 'github-contrib-cell level-0';
-        cell.dataset.date = day.date;
-        cell.title = `${day.date} — no activity`;
-        grid.appendChild(cell);
-        cellMap.set(day.date, cell);
-    });
-
-    // Try cache first (5 min)
-    const CACHE_KEY = 'gh_contrib_' + USERNAME;
-    const CACHE_TTL = 5 * 60 * 1000;
-    try {
-        const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
-        if (cached && Date.now() - cached.t < CACHE_TTL) {
-            applyCounts(cached.data);
-            return;
-        }
-    } catch (e) { /* ignore */ }
-
-    // Fetch recent public events
-    fetch(`https://api.github.com/users/${USERNAME}/events/public?per_page=100`)
-        .then(r => r.ok ? r.json() : [])
-        .then(events => {
-            const counts = {};
-            if (Array.isArray(events)) {
-                events.forEach(ev => {
-                    if (!ev.created_at) return;
-                    const date = ev.created_at.slice(0, 10);
-                    let weight = 1;
-                    // PushEvent: count commits
-                    if (ev.type === 'PushEvent' && ev.payload && Array.isArray(ev.payload.commits)) {
-                        weight = Math.max(1, ev.payload.commits.length);
-                    }
-                    counts[date] = (counts[date] || 0) + weight;
-                });
-            }
-            try {
-                localStorage.setItem(CACHE_KEY, JSON.stringify({
-                    t: Date.now(),
-                    data: counts
-                }));
-            } catch (e) { /* ignore */ }
-            applyCounts(counts);
-        })
-        .catch(() => {
-            totalEl.textContent = 'Activity data unavailable';
-        });
-
-    function applyCounts(counts) {
-        let total = 0;
-        let activeDays = 0;
-
-        allDays.forEach(day => {
-            const count = counts[day.date] || 0;
-            const cell = cellMap.get(day.date);
-            if (!cell) return;
-
-            let level = 0;
-            if (count >= 1 && count <= 2) level = 1;
-            else if (count >= 3 && count <= 5) level = 2;
-            else if (count >= 6 && count <= 9) level = 3;
-            else if (count >= 10) level = 4;
-
-            cell.classList.remove('level-0', 'level-1', 'level-2', 'level-3', 'level-4');
-            cell.classList.add('level-' + level);
-            cell.title = `${day.date} — ${count} ${count === 1 ? 'event' : 'events'}`;
-
-            total += count;
-            if (count > 0) activeDays++;
-        });
-
-        if (total === 0) {
-            totalEl.textContent = 'Quiet quarter — check back soon';
-        } else {
-            totalEl.textContent = `${total} events across ${activeDays} active ${activeDays === 1 ? 'day' : 'days'}`;
-        }
-    }
-})();
-
-// ============================================================
-// SKILLS SUITE — fake "last run" timestamp
-// ============================================================
-(function initSuiteTime() {
-    const el = document.getElementById('suiteTime');
-    if (!el) return;
-    const now = new Date();
-    const t = now.toTimeString().slice(0, 8);
-    el.textContent = 'last run: ' + t;
-})();
-
-    </script>
+</script>
 
 </body>
 </html>
