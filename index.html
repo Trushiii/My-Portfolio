@@ -211,8 +211,6 @@ nav{top:12px;left:12px;right:12px;padding:.55rem .75rem;border-radius:16px}
 .hero-content{flex:1.2}
 .eyebrow{font-family:var(--font-mono);font-size:.72rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple-text);display:block;margin-bottom:18px}
 .hero h1{font-family:var(--font-body);font-size:clamp(2.4rem,4.8vw,3.8rem);font-weight:700;line-height:1.12;margin-bottom:1.4rem;letter-spacing:-.01em}
-.location-tag{display:flex;align-items:center;gap:8px;margin-bottom:20px;color:var(--text-sub);font-family:var(--font-mono);font-size:.78rem;font-weight:500}
-.location-tag svg{color:var(--purple-text)}
 .hero-desc{color:var(--text-sub);margin-bottom:30px;font-size:1.08rem;max-width:560px;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;-ms-hyphens:auto}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
 .cv-button{background:var(--purple);color:#fff;font-family:var(--font-body);font-weight:700;padding:16px 38px;border-radius:10px;text-decoration:none;font-size:.95rem;display:inline-flex;align-items:center;gap:10px;transition:var(--transition-fast);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(124,108,240,.25)}
@@ -376,7 +374,7 @@ body.light-mode .badge-status-sub {
 
 /* METRICS */
 .metrics-band{position:relative;z-index:1;padding:40px 20px;margin:-40px auto 40px;max-width:1120px}
-.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;background:var(--ink-soft);border:1px solid var(--border);border-radius:var(--radius);padding:36px 24px}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;background:var(--ink-soft);border:1px solid var(--border);border-radius:var(--radius);padding:36px 24px}
 .metric-item{text-align:center;border-right:1px solid var(--border)}
 .metric-item:last-child{border-right:none}
 .metric-number{font-family:var(--font-body);font-size:2.4rem;font-weight:700;line-height:1;margin-bottom:8px}
@@ -669,7 +667,6 @@ body.light-mode .skill-icon,body.light-mode .chip-icon,body.light-mode .skill-lo
 @media (max-width:768px){
 .hero{flex-direction:column-reverse;padding:140px 7% 60px;gap:40px;text-align:center}
 .hero-content{align-items:center}
-.location-tag,.status-row{justify-content:center}
 .hero h1{font-size:2.1rem}
 .hero-desc{font-size:1rem;max-width:100%}
 .hero-image img{width:240px;height:270px}
@@ -1869,13 +1866,9 @@ body.light-mode .form-group textarea:focus {
                     <span class="hero-rotator-prefix">I'm a</span>
                     <span class="hero-rotator-text" id="heroRotator"></span>
                 </div>
-                <div class="location-tag">
-                    <i data-lucide="map-pin" size="15"></i>
-                    <span>Kalagedihena, Sri Lanka</span>
-                </div>
-                <p class="hero-desc"> QA &amp; Automation focused Computing Honours Undergraduate specializing in Information Systems. Building test frameworks with Playwright and Postman, writing structured test cases, and validating systems end to end. Currently seeking a QA or Business Analysis internship.</p>
+                <p class="hero-desc"> QA &amp; Automation focused Computing Honours Undergraduate specializing in Information Systems. Building test frameworks with Playwright, Postman, and AI agents (Playwright MCP). Writing structured test cases, generating tests via LLMs, and validating systems end to end.</p>
                 <div class="hero-actions">
-                    <a href="#projects" class="secondary-button">
+                    <a href="#projects" class="nav-cv-btn">
                         <i data-lucide="briefcase" size="17"></i>
                         View Projects
                     </a>
@@ -1907,20 +1900,16 @@ body.light-mode .form-group textarea:focus {
         <section class="metrics-band content-container">
             <div class="metrics-grid">
                 <div class="metric-item reveal">
-                    <div class="metric-number gradient-text" data-count="11">0</div>
-                    <div class="metric-label">App Screens Tested</div>
+                    <div class="metric-number gradient-text" data-count="10">0</div>
+                    <div class="metric-label">Projects Delivered</div>
                 </div>
                 <div class="metric-item reveal">
-                    <div class="metric-number gradient-text" data-count="45">0</div>
-                    <div class="metric-label">Defects Logged</div>
+                    <div class="metric-number gradient-text" data-count="3">0</div>
+                    <div class="metric-label">Automation Frameworks</div>
                 </div>
                 <div class="metric-item reveal">
                     <div class="metric-number gradient-text" data-count="6">0</div>
                     <div class="metric-label">Certifications</div>
-                </div>
-                <div class="metric-item reveal">
-                    <div class="metric-number gradient-text" data-count="10">0</div>
-                    <div class="metric-label">Projects Delivered</div>
                 </div>
             </div>
         </section>
@@ -1936,7 +1925,7 @@ body.light-mode .form-group textarea:focus {
                     </p>
                     <br>
                     <p>
-                    I focus on the intersection of software development and verification — translating product requirements into structured test cases, mapping API payloads, and validating systems end to end. Through my academic and personal projects, I've built two automation frameworks (Playwright for UI, Postman/Newman for API), authored 71 manual test cases across 15 modules, and run automated suites in CI/CD pipelines via GitHub Actions.
+                       I focus on the intersection of software development and verification — translating product requirements into structured test cases, mapping API payloads, and validating systems end to end. Through my academic and personal projects, I've built three automation frameworks (Playwright for UI, Postman/Newman for API, and an AI-powered QA agent using Playwright MCP), authored 71 manual test cases across 15 modules, and run automated suites in CI/CD pipelines via GitHub Actions.
                     </p>
                     <br>
                     <p>
@@ -2173,6 +2162,17 @@ body.light-mode .form-group textarea:focus {
                 <div class="projects-grid">
                     <div class="glass-card reveal">
                         <div class="project-video">
+                            <iframe src="https://drive.google.com/file/d/1IyG4Y19xG7mBnqtT5oTFAAHE5agojX7J/preview" width="100%" height="100%" allow="autoplay" allowfullscreen loading="lazy"></iframe>
+                            <div class="video-overlay"><span class="video-badge">▶ Demo</span></div>
+                        </div>
+                        <span class="tag">AI</span><span class="tag">MCP</span><span class="tag mint">Playwright</span>
+                        <h3 class="project-title">AI QA Agent</h3>
+                        <p>Built an AI-powered QA agent that reads natural-language requirements, explores live web applications via the <strong>Playwright Model Context Protocol (MCP)</strong>, and generates executable Playwright tests using accessibility-tree snapshots. Implemented origin allowlisting and manual tool-call approval as safety guardrails.</p>
+                        <a href="https://github.com/Trushiii/AI-QA-Agent" class="project-link">View Repository</a>
+                    </div>
+                    
+                    <div class="glass-card reveal">
+                        <div class="project-video">
                             <iframe src="https://drive.google.com/file/d/1bVkeW6MDh7RzPPdd94iK8QgGRh6-HlOU/preview" width="100%" height="100%" allow="autoplay" allowfullscreen loading="lazy"></iframe>
                             <div class="video-overlay"><span class="video-badge">▶ Demo</span></div>
                         </div>
@@ -2248,17 +2248,6 @@ body.light-mode .form-group textarea:focus {
                         <p>Extending NetLogo's Traffic Grid model with EV-specific logic — charging stations, battery levels, charging behaviour — to study how station placement affects congestion.</p>
                         <a href="https://ev-traffic-app.streamlit.app/" class="project-link">View Live App</a><br>
                         <a href="https://github.com/Trushiii/EV-Traffic-App" class="project-link">View Repository</a>
-                    </div>
-
-                    <div class="glass-card reveal">
-                        <div class="project-video">
-                            <iframe src="https://drive.google.com/file/d/1ehha_xel5CYNzkY5kQkVlef7ftOIJjHn/preview" width="100%" height="100%" allow="autoplay" allowfullscreen loading="lazy"></iframe>
-                            <div class="video-overlay"><span class="video-badge">▶ Demo</span></div>
-                        </div>
-                        <span class="tag">Game Dev</span><span class="tag mint">Logic</span>
-                        <h3 class="project-title">PuzzlePlex</h3>
-                        <p>An interactive, logic-based puzzle challenge with a focus on smooth interactions and algorithmic complexity, featuring custom level scaling and state management.</p>
-                        <a href="https://github.com/Trushiii/PuzzlePlex" class="project-link">View Repository</a>
                     </div>
 
                     <div class="glass-card reveal">
