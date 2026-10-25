@@ -1,6 +1,5 @@
 /* ============================================================
    TOKENS & COLOR PALETTE
-   Default: Modern Minimalistic Glassy Light Mode
    ============================================================ */
 :root {
     --ink: #f8fafc;
@@ -33,7 +32,6 @@
     --radius: 18px;
 }
 
-/* Matching Coordinated Obsidian Glass Dark Theme */
 body.dark-mode {
     --ink: #0a0e17;
     --ink-soft: rgba(17, 24, 39, 0.72);
@@ -127,7 +125,7 @@ body.loaded * {
 }
 
 /* ============================================================
-   BACKGROUND EFFECTS (Dynamic Cyber Ambient - High Motion & Non-Interfering)
+   BACKGROUND EFFECTS
    ============================================================ */
 .grid-bg {
     position: fixed;
@@ -286,7 +284,7 @@ body.dark-mode .particle-enhanced {
 }
 
 /* ============================================================
-   FLOATING QA TOOL ICONS (Background Layer)
+   FLOATING QA TOOL ICONS
    ============================================================ */
 .qa-icons-bg {
     position: fixed;
@@ -399,7 +397,7 @@ body.dark-mode .gradient-overlay {
 }
 
 /* ============================================================
-   QA LOADER (Minimal Frosted Glass)
+   QA LOADER
    ============================================================ */
 #loader {
     position: fixed;
@@ -651,7 +649,7 @@ body.dark-mode .gradient-text {
 }
 
 /* ============================================================
-   NAVIGATION (Floating Minimalistic Glass Bar)
+   NAVIGATION
    ============================================================ */
 nav {
     position: fixed !important;
@@ -778,7 +776,6 @@ nav .logo span {
     color: var(--purple-text);
 }
 
-/* Global Icon visibility & theme preservation */
 svg[data-lucide],
 .lucide {
     stroke: currentColor;
@@ -899,9 +896,8 @@ svg[data-lucide],
 }
 
 /* ============================================================
-   HERO SECTION (Calibrated to fit 100% in viewport on open)
+   HERO SECTION
    ============================================================ */
-/* Make sure this looks exactly like this */
 .hero {
     position: relative;
     z-index: 1;
@@ -1094,7 +1090,6 @@ body.dark-mode .hero-image img {
     100% { transform: translateY(-10px); }
 }
 
-/* Open-to-work Live Badge */
 .image-badge {
     position: absolute;
     top: 15px;
@@ -1300,7 +1295,7 @@ body.dark-mode .image-badge {
 }
 
 /* ============================================================
-   MODERN BENTO TECH STACK SECTION (Redesigned)
+   MODERN BENTO TECH STACK SECTION
    ============================================================ */
 .tech-stack-wrapper {
     display: flex;
@@ -1308,7 +1303,6 @@ body.dark-mode .image-badge {
     gap: 24px;
 }
 
-/* Category Filter Bar */
 .tech-filter-bar {
     display: flex;
     align-items: center;
@@ -1349,7 +1343,6 @@ body.dark-mode .image-badge {
     box-shadow: 0 4px 16px var(--purple-glow);
 }
 
-/* Tech Stack Bento Grid */
 .tech-bento-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1417,7 +1410,6 @@ body.dark-mode .image-badge {
     border: 1px solid var(--border);
 }
 
-/* Chip Grid inside Card */
 .tech-chips-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1615,7 +1607,7 @@ body.dark-mode .image-badge {
 }
 
 /* ============================================================
-   QA ARTIFACTS (Interactive QA Deliverables Console)
+   QA ARTIFACTS
    ============================================================ */
 .artifacts-grid {
     display: grid;
@@ -1770,7 +1762,7 @@ body.dark-mode .image-badge {
 }
 
 /* ============================================================
-   COMPACT CERTIFICATE BROCHURE SHOWCASE (Refined & Compact)
+   COMPACT CERTIFICATE BROCHURE SHOWCASE
    ============================================================ */
 .brochure-wrapper {
     position: relative;
@@ -1844,7 +1836,6 @@ body.dark-mode .image-badge {
     margin: 0 2px;
 }
 
-/* Spread: Compact 2 Columns */
 .brochure-spread {
     display: grid;
     grid-template-columns: 240px 1fr;
@@ -1869,7 +1860,6 @@ body.dark-mode .image-badge {
     to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-/* Document Stage */
 .brochure-doc-stage {
     position: relative;
     cursor: pointer;
@@ -1949,7 +1939,6 @@ body.dark-mode .brochure-doc-frame {
     z-index: 2;
 }
 
-/* Info Pane */
 .brochure-info-pane {
     display: flex;
     flex-direction: column;
@@ -2043,9 +2032,6 @@ body.dark-mode .brochure-doc-frame {
     box-shadow: 0 8px 20px var(--purple-glow);
 }
 
-
-
-/* Controls */
 .brochure-controls {
     display: flex;
     justify-content: space-between;
@@ -2194,7 +2180,7 @@ body.dark-mode .brochure-doc-frame {
 }
 
 /* ============================================================
-   BLOG SECTION (Modern Interactive Carousel)
+   BLOG SECTION
    ============================================================ */
 .blog-header-row {
     display: flex;
@@ -2228,7 +2214,6 @@ body.dark-mode .brochure-doc-frame {
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Light mode arrows (matches UI reference: prev is outlined light, next is filled dark) */
 .blog-prev-arrow {
     background: #ffffff;
     border: 1.5px solid rgba(203, 213, 225, 0.9);
@@ -2258,7 +2243,6 @@ body.dark-mode .brochure-doc-frame {
     box-shadow: 0 6px 18px var(--purple-glow);
 }
 
-/* Dark mode arrows */
 body.dark-mode .blog-prev-arrow {
     background: var(--ink-raised);
     border: 1.5px solid var(--border);
@@ -2285,7 +2269,6 @@ body.dark-mode .blog-next-arrow:hover {
     transform: translateY(-2px);
 }
 
-/* Carousel Track & Wrapper */
 .blog-carousel-wrapper {
     position: relative;
     width: 100%;
@@ -2307,7 +2290,6 @@ body.dark-mode .blog-next-arrow:hover {
     display: none;
 }
 
-/* Blog Tile Card */
 .blog-tile {
     flex: 0 0 248px;
     scroll-snap-align: start;
@@ -2420,7 +2402,6 @@ body.dark-mode .blog-next-arrow:hover {
     gap: 8px;
 }
 
-/* Dots Indicator */
 .blog-carousel-dots {
     display: flex;
     justify-content: center;
@@ -2577,7 +2558,6 @@ body.dark-mode .blog-dot.active {
     text-overflow: ellipsis;
 }
 
-/* Contact brands */
 .contact-info-item[data-brand="email"] .contact-info-icon { background: rgba(234, 67, 53, 0.1); border-color: rgba(234, 67, 53, 0.2); }
 .contact-info-item[data-brand="whatsapp"] .contact-info-icon { background: rgba(37, 211, 102, 0.1); border-color: rgba(37, 211, 102, 0.2); }
 .contact-info-item[data-brand="linkedin"] .contact-info-icon { background: rgba(10, 102, 194, 0.1); border-color: rgba(10, 102, 194, 0.2); }
@@ -2590,7 +2570,6 @@ body.dark-mode .contact-info-item[data-brand="medium"] .contact-info-icon {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Message Form */
 .message-form-wrapper {
     padding: 38px 34px;
 }
@@ -2716,7 +2695,7 @@ footer {
 }
 
 /* ============================================================
-   READABILITY LIMITS (Prevents text from stretching too far)
+   READABILITY LIMITS
    ============================================================ */
 .glass-card,
 .projects-grid, 
@@ -2780,7 +2759,7 @@ footer {
 }
 
 /* ============================================================
-   CENTERED QA ARTIFACTS (LAPTOP ONLY)
+   CENTERED QA ARTIFACTS
    ============================================================ */
 
 .artifacts-layout {
@@ -2790,9 +2769,8 @@ footer {
     margin-top: 40px;
 }
 
-/* Laptop Mockup */
 /* ============================================================
-   CENTERED QA ARTIFACTS (LAPTOP ONLY)
+   CENTERED QA ARTIFACTS
    ============================================================ */
 
 .artifacts-layout {
@@ -2800,7 +2778,7 @@ footer {
     justify-content: center !important;
     width: 100% !important;
     margin-top: 40px !important;
-    opacity: 1 !important; /* Forces visibility */
+    opacity: 1 !important; 
     transform: translateY(0) !important;
 }
 
@@ -2821,7 +2799,6 @@ footer {
     box-shadow: var(--glass-shadow-hover);
 }
 
-/* Laptop Header */
 .laptop-header {
     background: var(--ink-raised);
     padding: 12px 18px;
@@ -2852,7 +2829,6 @@ footer {
     opacity: 0.8;
 }
 
-/* Laptop Body */
 .laptop-body {
     padding: 24px;
 }
@@ -2871,7 +2847,6 @@ footer {
     gap: 12px;
 }
 
-/* Interactive Rows */
 .artifact-row {
     display: flex;
     align-items: center;
@@ -2962,7 +2937,6 @@ footer {
     color: var(--purple-text);
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .artifact-row {
         flex-direction: column;
@@ -2979,7 +2953,7 @@ footer {
 }
 
 /* ============================================================
-   HERO IMPROVEMENTS (Floating Badges & Bigger Image)
+   HERO IMPROVEMENTS
    ============================================================ */
 
 .hero-image img {
@@ -3115,7 +3089,6 @@ body.dark-mode .grid-bg {
     padding: 20px 40px !important;
     margin: 60px auto 40px auto !important;
     
-    /* Solid fallback colors */
     background-color: #1e293b !important; 
     border: 1px solid rgba(255, 255, 255, 0.15) !important;
     border-radius: 100px !important; 
@@ -3144,7 +3117,6 @@ body.light-mode .modern-cta-banner {
     text-align: center !important;
 }
 
-/* Modern Footer */
 .modern-footer {
     display: flex !important;
     flex-direction: row !important;
@@ -3167,7 +3139,7 @@ body.light-mode .modern-footer {
     flex-direction: column !important;
     gap: 4px !important;
     text-align: left !important;
-    flex: 1 !important; /* This pushes the button to the far right */
+    flex: 1 !important;
 }
 
 .footer-logo {
@@ -3201,7 +3173,7 @@ body.light-mode .modern-footer {
     display: flex !important;
     align-items: center !important;
     gap: 16px !important;
-    flex-shrink: 0 !important; /* Prevents the button from being squished */
+    flex-shrink: 0 !important; 
 }
 
 .footer-top-btn {
@@ -3209,7 +3181,7 @@ body.light-mode .modern-footer {
     align-items: center !important;
     gap: 8px !important;
     padding: 12px 24px !important;
-    background: linear-gradient(135deg, var(--purple), var(--purple-deep)) !important; /* Made it purple so it pops! */
+    background: linear-gradient(135deg, var(--purple), var(--purple-deep)) !important; 
     border: none !important;
     border-radius: 50px !important;
     color: #ffffff !important;
